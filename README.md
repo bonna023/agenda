@@ -1,2 +1,4 @@
-# agenda_universitaire
-Projet INFO606 2016 (Symfony 2.8)
+agenda_universitaire
+====================
+
+A Symfony project created on February 4, 2016, 1:54 pm.
