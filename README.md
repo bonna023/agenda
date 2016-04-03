@@ -2,7 +2,9 @@ Proget INFO606 - Agenda Universitaire
 
 Sujet
 ----
-
+Le but du projet est de développer un système de gestion d'emploi du temps pour des formations universitaires (comme par exemple les Master 2), en s'inspirant de Google Agenda. Le projet devra être réalisé en Symfony 2.8.
+ 
+ 
 Pour commencer à coder :
 ````
 git clone https://github.com/bonna023/agenda.git
@@ -21,8 +23,6 @@ sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 ````
 
-Le but du projet est de développer un système de gestion d'emploi du temps pour des formations universitaires (comme par exemple les Master 2), en s'inspirant de Google Agenda. Le projet devra être réalisé en Symfony 2.8.
- 
 Mémo sur l'utilisation de Git
 ----
 Pour commencer, installer [Git (pour Windows)](https://git-scm.com/download/win), pour les linuxiens je vous laisse faire ! ;). 
