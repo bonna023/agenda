@@ -2,7 +2,24 @@ Proget INFO606 - Agenda Universitaire
 
 Sujet
 ----
-test
+
+Pour commencer à coder :
+````
+git clone https://github.com/bonna023/agenda.git
+````
+Ensuite élécharger [Composer.phar (Latest Snapshot)](https://getcomposer.org/download/) à la racine du projet puis :
+````
+php composer.phar install
+````
+C'est bon !
+
+Si vous utilisez une distribution GNU/Linux :
+````
+rm -rf app/cache/*
+rm -rf app/logs/*
+sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
+````
 
 Le but du projet est de développer un système de gestion d'emploi du temps pour des formations universitaires (comme par exemple les Master 2), en s'inspirant de Google Agenda. Le projet devra être réalisé en Symfony 2.8.
  
@@ -17,7 +34,7 @@ A ce stade vous avez un terminal lancé dans le bon répertoire, on va pouvoir p
  
 Commande à réaliser une seule fois à la création du dépot sur votre machine :
 ````
-$ git clone https://github.com/bonna023/agenda_universitaire.git
+$ git clone https://github.com/bonna023/agenda.git
 ````
 
 Les trois commandes incontournables (qu'on utilisera tout le temps) :
