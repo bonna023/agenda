@@ -1,0 +1,112 @@
+<?php
+
+namespace EDTBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Matiere
+ *
+ * @ORM\Table(name="matiere")
+ * @ORM\Entity(repositoryClass="EDTBundle\Repository\MatiereRepository")
+ */
+class Matiere
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\ProfMatiere", mappedBy="matiere_profs")
+     */
+    private $matiere_profs;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Matiere
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->matiere_profs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add matiere_profs
+     *
+     * @param \EDTBundle\Entity\ProfMatiere $matiereProfs
+     * @return Matiere
+     */
+    public function addMatiereProf(\EDTBundle\Entity\ProfMatiere $matiereProfs)
+    {
+        $this->matiere_profs[] = $matiereProfs;
+        $matiereProfs->setMatiere($this);
+        /*C'est un relation bidirectionnelle, il faut donc lier les deux entités de manière
+        à ce qu'elle garde une cohérence entre elles.
+        */
+        return $this;
+    }
+
+    /**
+     * Remove matiere_profs
+     *
+     * @param \EDTBundle\Entity\ProfMatiere $matiereProfs
+     */
+    public function removeMatiereProf(\EDTBundle\Entity\ProfMatiere $matiereProfs)
+    {
+        $this->matiere_profs->removeElement($matiereProfs);
+    }
+
+    /**
+     * Get matiere_profs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatiereProfs()
+    {
+        return $this->matiere_profs;
+    }
+}

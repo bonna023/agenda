@@ -1,0 +1,3 @@
+edt_homepage:
+    path:     /
+    defaults: { _controller: EDTBundle:Default:index }

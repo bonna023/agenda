@@ -1,0 +1,9 @@
+user_homepage:
+    path:     /
+    defaults: { _controller: UserBundle:User:index }
+    
+user_set_role:
+    path:   /set/{role}
+    defaults: { _controller: UserBundle:User:setRole }
+    requirements:
+            role: ADMIN|USER
