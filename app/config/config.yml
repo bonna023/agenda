@@ -2,11 +2,13 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@UserBundle/Resources/config/services.yml" }
+    - { resource: "@EDTBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
 
 framework:
     #esi:             ~
@@ -64,3 +66,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+
+fos_user:
+    db_driver:     orm                      
+    firewall_name: main                      
+    user_class:    UserBundle\Entity\User  
+    # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    # La classe de l'entité User que nous utilisons

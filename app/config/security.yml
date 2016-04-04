@@ -1,24 +1,43 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
+# app/config/security.yml
+
 security:
+    encoders:
+        UserBundle\Entity\User: sha512
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_PROF]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     providers:
-        in_memory:
-            memory: ~
-
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            id: fos_user.user_provider.username
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main_login:
+            #cetter expression régulier permet de prendre /login mais pas /login_check
+            pattern: ^/login$
+            anonymous: true
+        #grace au pargeur main_login, les nouveaux arrivants auront accès à la page de login mais pas au reste,
+        main:           
+            pattern:  ^/ 
+            anonymous: false
+              # toutes le URL commencant par / sont protégées par le parefeu, accepte les utilisateurs anonymes.
+            provider:  main
+            form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                #form_login : méthode d'authentification utilisée pour ce pare-feu, 
+                #login_paht : défini au chemin login => formulaire de connexion
+                #check_path: route de validation du formulaire=> pas besoin de crée une fonction de validation, c'est SYmfony qui s'en occupe!
+            logout:
+                path: fos_user_security_logout
+                target: /
+                #target = url à laquelle le client sera redirigé après déconnexion. 
+            remember_me:
+                key:    %secret%
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        #toutes les urls commencant par /admin doivent être logués avec une ROLE_ADMIN
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
