@@ -9,7 +9,7 @@ Pour commencer à coder :
 ````
 git clone https://github.com/bonna023/agenda.git
 ````
-Ensuite élécharger [Composer.phar (Latest Snapshot)](https://getcomposer.org/download/) à la racine du projet puis :
+Ensuite élécharger [Composer.phar (Latest Snapshot)](https://getcomposer.org/composer.phar) à la racine du projet puis :
 ````
 php composer.phar install
 ````
