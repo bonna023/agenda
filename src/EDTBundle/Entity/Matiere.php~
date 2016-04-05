@@ -33,6 +33,11 @@ class Matiere
      */
     private $matiere_profs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\Seance", mappedBy="matiere")
+     * une matiere possède plusieurs séances : 30 h de Cm, 10 h de TD, ....
+     */
+     private $seances;
 
     /**
      * Get id
@@ -65,5 +70,49 @@ class Matiere
     public function getNom()
     {
         return $this->nom;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->matiere_profs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->seances=new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add matiere_profs
+     *
+     * @param \EDTBundle\Entity\ProfMatiere $matiereProfs
+     * @return Matiere
+     */
+    public function addMatiereProf(\EDTBundle\Entity\ProfMatiere $matiereProfs)
+    {
+        $this->matiere_profs[] = $matiereProfs;
+        $matiereProfs->setMatiere($this);
+        /*C'est un relation bidirectionnelle, il faut donc lier les deux entités de manière
+        à ce qu'elle garde une cohérence entre elles.
+        */
+        return $this;
+    }
+
+    /**
+     * Remove matiere_profs
+     *
+     * @param \EDTBundle\Entity\ProfMatiere $matiereProfs
+     */
+    public function removeMatiereProf(\EDTBundle\Entity\ProfMatiere $matiereProfs)
+    {
+        $this->matiere_profs->removeElement($matiereProfs);
+    }
+
+    /**
+     * Get matiere_profs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMatiereProfs()
+    {
+        return $this->matiere_profs;
     }
 }

@@ -33,6 +33,11 @@ class Matiere
      */
     private $matiere_profs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\Seance", mappedBy="matiere")
+     * une matiere possède plusieurs séances : 30 h de Cm, 10 h de TD, ....
+     */
+     private $seances;
 
     /**
      * Get id
@@ -72,6 +77,7 @@ class Matiere
     public function __construct()
     {
         $this->matiere_profs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->seances=new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -108,5 +114,38 @@ class Matiere
     public function getMatiereProfs()
     {
         return $this->matiere_profs;
+    }
+
+    /**
+     * Add seances
+     *
+     * @param \EDTBundle\Entity\Seance $seances
+     * @return Matiere
+     */
+    public function addSeance(\EDTBundle\Entity\Seance $seances)
+    {
+        $this->seances[] = $seances;
+        $seances->setMatiere($this);
+        return $this;
+    }
+
+    /**
+     * Remove seances
+     *
+     * @param \EDTBundle\Entity\Seance $seances
+     */
+    public function removeSeance(\EDTBundle\Entity\Seance $seances)
+    {
+        $this->seances->removeElement($seances);
+    }
+
+    /**
+     * Get seances
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSeances()
+    {
+        return $this->seances;
     }
 }
