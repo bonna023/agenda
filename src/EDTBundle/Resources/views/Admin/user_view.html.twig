@@ -1,0 +1,46 @@
+{% extends "EDTBundle::layoutAdmin.html.twig"%}
+
+{%block admin_body %}
+
+  <div class="row">
+    <div class="col-md-6">
+      <a href="{{path(route_add,{'entite' : nomEntite }) }}">
+        <button type="button" class="btn btn-lg btn-primary">Ajouter</button>
+      </a>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>username</th>
+            <th>email</th>
+            {% if nomEntite == 'Etudiant' %}
+            <th>num_etudiant</th>
+            {% endif %}
+            <th>last_login</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in listeUsers %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{utilisateur.username}}</td>
+            <td>{{utilisateur.email}}</td>
+            {% if utilisateur.numEtudiant is defined and utilisateur.numEtudiant is not null %}
+              <td>{{utilisateur.numEtudiant}}</td>
+            {% else %}
+              <td> NULL </td>
+            {% endif %}
+            {% if utilisateur.lastLogin is defined and utilisateur.lastLogin is not null %}
+              <td>{{utilisateur.lastLogin|date('Y-m-d H:i:s') }}</td>
+            {% else %}
+              <td> NULL </td>
+            {% endif %}
+            <td><a href="{{path( route_edit, {'entite': nomEntite ,'id': utilisateur.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+            <td><a href="{{path( route_delete, {'entite': nomEntite, 'id': utilisateur.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{%endblock%}

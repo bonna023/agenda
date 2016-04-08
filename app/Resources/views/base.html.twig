@@ -3,13 +3,73 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
     </head>
     <body>
-        {% block body %}
-            
-        {% endblock %}
-        {% block javascripts %}{% endblock %}
+    <div class="container">
+
+     <!-- Static navbar -->
+     <nav class="navbar navbar-default">
+       <div class="container-fluid">
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="{{ path('edt_homepage')}}">Agenda Universitaire</a>
+         </div>
+         <div id="navbar" class="navbar-collapse collapse">
+           <ul class="nav navbar-nav">
+             <li><a href="{{ path('edt_homepage')}}">Home</a></li>
+             <li><a href="{{ path('edt_a_propos')}}">A propos</a></li>
+             {% if is_granted('ROLE_ADMIN') %}
+              <li><a href="{{ path('admin_home_page')}}">Admin</a></li>
+              {% endif %}
+           </ul>
+           <ul class="nav navbar-nav navbar-right">
+               {% if is_granted('ROLE_USER') %}
+                <li><a href="{{path('fos_user_profile_show')}}">Mon Compte</a></li>
+                <li><a href="{{path('fos_user_security_logout')}}">Se déconnecter</a></li>
+
+               {% else %}
+                <li><a href="{{path('fos_user_security_login')}}">Se Connecter</a></li>
+               {% endif %}
+           </ul>
+         </div><!--/.nav-collapse -->
+       </div><!--/.container-fluid -->
+     </nav>
+
+     <!-- Main component for a primary marketing message or call to action -->
+
+     <div class="jumbotron">
+       <h1>Emploi du temps </h1>
+       <p>Université Reims Champagne-Ardennes </p>
+     </div>
+   </div> <!-- /container -->
+
+     <div class="row">
+       {%block body %}
+       {%endblock%}
+     </div>
+
+
+
+   {% block javascripts %}
+     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+   {% endblock %}
     </body>
+
+    <footer>
+      <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+      <p>Agenda Universitaire, projet Info0606</p>
+      <p>Auteurs du site : Dimitri, Jérémy, Mehdi, Thomas.</p>
+      <p>Encadrant : Florent Nolot</p>
+    </footer>
 </html>

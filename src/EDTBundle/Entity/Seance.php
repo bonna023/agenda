@@ -1,0 +1,149 @@
+<?php
+
+namespace EDTBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Seance
+ *
+ * @ORM\Table(name="seance")
+ * @ORM\Entity(repositoryClass="EDTBundle\Repository\SeanceRepository")
+ */
+class Seance
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nb_heures", type="integer")
+     */
+    private $nbHeures;
+
+    /**
+     * @var Type
+     *
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Type" , cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     * PLusieurs seances peuvent avoir le même type, (30 heures de Cm en infoXXX et 10 heures de CM en MAXXX)
+     */
+     private $type;
+
+     /**
+      *@ORM\ManyToOne(targetEntity="EDTBundle\Entity\Matiere", inversedBy="seances")
+      *@ORM\JoinColumn(nullable=false)
+      * plusieurs séances sont attachées à une et une seule matière :
+      * 10 h de CM, 20 h de TP,...
+      */
+      private $matiere;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nbHeures
+     *
+     * @param integer $nbHeures
+     * @return Seance
+     */
+    public function setNbHeures($nbHeures)
+    {
+        $this->nbHeures = $nbHeures;
+
+        return $this;
+    }
+
+    /**
+     * Get nbHeures
+     *
+     * @return integer
+     */
+    public function getNbHeures()
+    {
+        return $this->nbHeures;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \EDTBundle\Entity\Type $type
+     * @return Seance
+     */
+    public function setType(\EDTBundle\Entity\Type $type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \EDTBundle\Entity\Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set matieres
+     *
+     * @param \EDTBundle\Entity\Matiere $matieres
+     * @return Seance
+     */
+    public function setMatieres(\EDTBundle\Entity\Matiere $matieres)
+    {
+        $this->matieres = $matieres;
+
+        return $this;
+    }
+
+    /**
+     * Get matieres
+     *
+     * @return \EDTBundle\Entity\Matiere
+     */
+    public function getMatieres()
+    {
+        return $this->matieres;
+    }
+
+    /**
+     * Set matiere
+     *
+     * @param \EDTBundle\Entity\Matiere $matiere
+     * @return Seance
+     */
+    public function setMatiere(\EDTBundle\Entity\Matiere $matiere)
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Get matiere
+     *
+     * @return \EDTBundle\Entity\Matiere 
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
+    }
+}

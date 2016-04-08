@@ -4,7 +4,7 @@ namespace EDTBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use EDTBundle\Entity\Matiere;
-use UserBundle\Entity\Professeur;
+use UserBundle\Entity\User;
 /**
  * ProfMatiere
  *
@@ -80,7 +80,7 @@ class ProfMatiere
      * @param \UserBundle\Entity\Professeur $professeur
      * @return ProfMatiere
      */
-    public function setProfesseur(\UserBundle\Entity\Professeur $professeur)
+    public function setProfesseur(\UserBundle\Entity\User $professeur)
     {
         $this->professeur = $professeur;
 
@@ -90,7 +90,7 @@ class ProfMatiere
     /**
      * Get professeur
      *
-     * @return \UserBundle\Entity\Professeur
+     * @return \UserBundle\Entity\User
      */
     public function getProfesseur()
     {

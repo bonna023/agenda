@@ -2,6 +2,10 @@ edt:
     resource: "@EDTBundle/Resources/config/routing.yml"
     prefix:   /
 
+admin:
+    resource: "@EDTBundle/Resources/config/admin_routing.yml"
+    prefix:   /admin/
+
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /user/

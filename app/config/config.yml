@@ -12,7 +12,7 @@ parameters:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -69,9 +69,9 @@ swiftmailer:
 
 
 fos_user:
-    db_driver:     orm                      
-    firewall_name: main                      
-    user_class:    UserBundle\Entity\User  
+    db_driver:     orm
+    firewall_name: main
+    user_class:    UserBundle\Entity\User
     # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     # La classe de l'entité User que nous utilisons

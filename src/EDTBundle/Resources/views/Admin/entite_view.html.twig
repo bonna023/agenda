@@ -1,0 +1,34 @@
+{% extends "EDTBundle::layoutAdmin.html.twig"%}
+
+{%block admin_body %}
+<div class="row">
+  <div class="col-md-6">
+    <a href="{{path(route_add)}}">
+      <button type="button" class="btn btn-lg btn-primary">
+        Ajouter
+      </button>
+    </a>
+
+    <table class="table">
+      <thead>
+        <tr>
+          {% for nom in nomAttributs %}
+            <th>{{nom}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for entite in entites %}
+        <tr>
+        {% for nom in nomAttributs %}
+          <td>{{ attribute(entite,nom) }} </td>
+        {% endfor %}
+        <td><a href="{{path( route_edit, {'id': entite.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+        <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': entite.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+      </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+</div>
+</div>
+{% endblock %}

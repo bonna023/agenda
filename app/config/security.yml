@@ -17,24 +17,25 @@ security:
             security: false
         main_login:
             #cetter expression régulier permet de prendre /login mais pas /login_check
-            pattern: ^/login$
+            pattern: ^/login$ 
             anonymous: true
         #grace au pargeur main_login, les nouveaux arrivants auront accès à la page de login mais pas au reste,
-        main:           
-            pattern:  ^/ 
+
+        main:
+            pattern:  ^/
             anonymous: false
               # toutes le URL commencant par / sont protégées par le parefeu, accepte les utilisateurs anonymes.
             provider:  main
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
-                #form_login : méthode d'authentification utilisée pour ce pare-feu, 
+                #form_login : méthode d'authentification utilisée pour ce pare-feu,
                 #login_paht : défini au chemin login => formulaire de connexion
                 #check_path: route de validation du formulaire=> pas besoin de crée une fonction de validation, c'est SYmfony qui s'en occupe!
             logout:
                 path: fos_user_security_logout
                 target: /
-                #target = url à laquelle le client sera redirigé après déconnexion. 
+                #target = url à laquelle le client sera redirigé après déconnexion.
             remember_me:
                 key:    %secret%
     access_control:

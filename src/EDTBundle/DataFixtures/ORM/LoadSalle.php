@@ -26,6 +26,7 @@ class LoadSalle implements FixtureInterface
                         ->findOneBy(['type' => 'CM']);
 
       $salle->setType($typeCM);
+
       $manager->persist($salle);
     }
 

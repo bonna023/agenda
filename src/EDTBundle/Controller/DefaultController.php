@@ -10,4 +10,8 @@ class DefaultController extends Controller
     {
         return $this->render('EDTBundle:Default:index.html.twig');
     }
+
+    public function a_proposAction(){
+      return $this->render('EDTBundle:Default:a_propos.html.twig');
+    }
 }
