@@ -45,7 +45,7 @@ class Salle
     /**
      * @var Type
      *
-     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Type" , cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Type")
      * @ORM\JoinColumn(nullable=false)
      * PLusieurs salle peuvent avoir le même type, (ex, tous les amphis sont pour les CM)
      */
@@ -148,7 +148,7 @@ class Salle
     /**
      * Get type
      *
-     * @return \EDTBundle\Entity\Type 
+     * @return \EDTBundle\Entity\Type
      */
     public function getType()
     {

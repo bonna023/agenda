@@ -22,7 +22,7 @@ class SalleType extends AbstractType
             ->add('capacite')
             ->add('type',EntityType::class,
                 ['class' => 'EDTBundle:Type',
-                 'choice_label' =>'type',
+                 'choice_label' =>'nom',
                  'multiple' =>false
                 ]
             )

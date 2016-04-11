@@ -108,11 +108,12 @@ class AdminController extends Controller
         break;
         case 'Salle' :
           $objet = new Salle();
-          $form = $formFactory->create (MatiereType::class, $objet);
+          $form = $formFactory->create (SalleType::class, $objet);
         break;
         case 'ProfMatiere':
           $objet = new ProfMatiere();
           $form = $formFactory->create (ProfMatiereType::class, $objet);
+        break;
       }
       //le formulaire généré va hydrater l'objet $salle
       if ($form->handleRequest($request)->isValid()){
@@ -181,7 +182,8 @@ class AdminController extends Controller
       $entite_a_supprimer = $em->getRepository($bundle.'Bundle:'.$entite)->find($id);
       $em->remove($entite_a_supprimer);
       $em->flush();
-      return new Response('<body>Entite bien supprimee. </body>');
+      $url = $this->generateUrl('admin_home_page');
+      return new Response('<body>Entite bien supprimee. Page admin : '.$url.' </body>');
     }
 
 
