@@ -19,7 +19,7 @@ class LoadType implements FixtureInterface
       $type = new Type();
 
       // Le nom d'utilisateur et le mot de passe sont identiques
-      $type->setType($nomtype);
+      $type->setNom($nomtype);
 
       $manager->persist($type);
     }

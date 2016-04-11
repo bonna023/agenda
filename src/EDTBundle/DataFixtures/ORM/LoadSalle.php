@@ -23,8 +23,8 @@ class LoadSalle implements FixtureInterface
       $salle->setNumBatiment('17');
       $salle->setCapacite(50);
       $typeCM = $manager->getRepository('EDTBundle:Type')
-                        ->findOneBy(['type' => 'CM']);
-
+                        ->findOneBy(['nom' => 'CM']);
+dump($typeCM);die;
       $salle->setType($typeCM);
 
       $manager->persist($salle);
