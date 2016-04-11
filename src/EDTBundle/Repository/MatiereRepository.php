@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class MatiereRepository extends EntityRepository
 {
+  public function getMatieresSeances(){
+        $qb = $this->createQueryBuilder('m')
+        ->leftJoin('m.seances' ,'s')
+        ->addSelect('s')
+        //->where('s.nbHeures > 0') inutile car on ne stockera que les seances ou il y a des heures
+        // exemple => une matière sans Tp, n'aura pas de séance tp à 0 heure dans la BDD.
+        //si il n y a rien on en déduit que le nombre d'heure est 0.
+        ->leftJoin('s.type', 't')
+        ->addSelect('t');
+        return $qb->getQuery()->getResult();
+  }
 }

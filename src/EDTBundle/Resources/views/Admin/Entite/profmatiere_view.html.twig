@@ -1,0 +1,38 @@
+{% extends "EDTBundle::layoutAdmin.html.twig"%}
+
+{% block admin_body %}
+<div class="row">
+  <div class="col-md-6">
+    <a href="{{path(route_add, {'entite' : nomEntite})}}">
+      <button type="button" class="btn btn-lg btn-primary">
+        Ajouter
+      </button>
+    </a>
+
+    <table class="table">
+      <thead>
+        <tr>
+            <th>Nom Prof</th>
+            <th>Nom Matiere</th>
+            <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for nom in noms %}
+        <tr>
+        <td>{{nom.username}} </td>
+        <td>{{nom.nom}}</td>
+        {% if nom[0].responsable %}
+          <td>1</td>
+        {% else %}
+          <td>0</td>
+        {% endif %}
+        <td><a href="{{path( route_edit, {'entite': nomEntite , 'id': nom[0].id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+        <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': nom[0].id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+      </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "EDTBundle::layoutAdmin.html.twig" %}
+
+{%block admin_body %}
+<div class="row">
+  <div class="col-md-6">
+    <a href="{{path(route_add , {'entite' : nomEntite})}}">
+      <button type="button" class="btn btn-lg btn-primary">
+        Ajouter
+      </button>
+    </a>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>nom</th>
+          {% for nomType in nomsType %} {# Affichage de TP/TD/CM/...#}
+            <th>{{nomType.nom}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for matiere in matieres %}{# paroucrs des matieres#}
+        <tr>
+          <td>{{matiere.nom}}</td>
+          {% set i = 0 %}
+          {% for nomType in nomsType %} {# parcours des séance de la matiere encours #}
+            <td>
+
+            {% if matiere.seances[i] is defined and nomType.nom == matiere.seances[i].type.nom %} {# si le type est défini de séance est défini dans la BDD #}
+              {{matiere.seances[i].nbHeures}} {# alors on affiche son nom d'heure#}
+              {% set i = i+1 %}
+            {% else %}
+                0 {# sinon on affiche 0 car cette matière n'a pas de séance de ce type.#}
+            {% endif %}
+            </td>
+          {% endfor %}
+        <td><a href="{{path( route_edit, {'entite': nomEntite , 'id': matiere.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+        <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': matiere.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+      </tr>
+     {% endfor %}
+   </tbody>
+ </table>
+</div>
+</div>
+{% endblock %}

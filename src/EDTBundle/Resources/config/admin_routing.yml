@@ -10,10 +10,22 @@ edt_user_view:
     defaults: {_controller: EDTBundle:Admin:afficherUser }
     requirements:
       entite: 'Etudiant|Professeur'
+
+edt_ProfMatiere_view:
+    path:   /view/ProfMatiere
+    defaults: {_controller: EDTBundle:Admin:afficherProfMatiere}
+
+edt_Matiere_view:
+    path:   /view/Matiere
+    defaults: {_controller: EDTBundle:Admin:afficherMatiere }
+
 #route generique aux Entites Salle MAtiere, ....
+
 edt_entite_view:
     path:    /view/{entite}
     defaults: {_controller: EDTBundle:Admin:afficherEntite}
+
+
 
 #route generique à toutes les entités
 edt_entite_delete:
@@ -21,7 +33,20 @@ edt_entite_delete:
     defaults: {_controller: EDTBundle:Admin:deleteEntite}
     requirements:
       id : \d+
-      entite: 'Salle|Matiere|Etudiant|Professeur'
+      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type'
+
+edt_entite_add:
+    path:  /add/{entite}
+    defaults: {_controller: EDTBundle:Admin:addEntite}
+    requirements:
+      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type'
+
+edt_entite_edit:
+    path: /edit/{entite}/{id}
+    defaults: {_controller: EDTBundle:Admin:editEntite}
+    requirements:
+        id: \d+
+        entite: 'Salle|Matiere|ProfMatiere|Type'
 
 # route spécifique à chaque entité pour ajouter/modofier
 edt_Salle_edit:
@@ -34,6 +59,18 @@ edt_Salle_add:
     path:   /add/Salle
     defaults: {_controller: EDTBundle:Admin:ajouterSalle}
 
+edt_Matiere_edit:
+    path:   /edit/Matiere/{id}
+    defaults: {_controller: EDTBundle:Admin:editerMatiere}
+
+edt_Matiere_add:
+    path:  /edit/Matiere
+    defaults: {_controller: EDTBundle:Admin:ajouterMatiere}
+
+edt_ProfMatiere_add:
+    path:  /add/ProfMatiere
+    defaults: {_controller: EDTBundle:Admin:ajouter}
+
 
 #route pour les maj de USERs
 edt_user_edit:
@@ -45,3 +82,8 @@ edt_user_edit:
 edt_user_add:
     path:   /add/user/{entite}
     defaults: {_controller: EDTBundle:Admin:addUser}
+
+
+edt_afficherCours:
+    path:   /afficherMesCours
+    defaults: {_controller: EDTBundle:Admin:afficherMesCours}

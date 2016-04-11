@@ -12,4 +12,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProfMatiereRepository extends EntityRepository
 {
+  public function getNomsProfsMatieres(){
+        $qb = $this->createQueryBuilder('pm')
+        ->leftJoin('pm.professeur' ,'p')
+        ->addSelect('p.username')
+        ->leftJoin('pm.matiere', 'm')
+        ->addSelect('m.nom');
+        return $qb->getQuery()->getResult();
+  }
 }

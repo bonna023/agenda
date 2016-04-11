@@ -1,15 +1,13 @@
 <?php
 
-namespace UserBundle\Form;
+namespace EDTBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type;
 
-class ProfesseurType extends AbstractType
+class MatiereType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -17,21 +15,17 @@ class ProfesseurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('save' , Type\SubmitType::class)
+            ->add('nom')
         ;
     }
-
+    
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\Professeur'
+            'data_class' => 'EDTBundle\Entity\Matiere'
         ));
-    }
-
-    public function getParent(){
-      return  UserType::class;
     }
 }

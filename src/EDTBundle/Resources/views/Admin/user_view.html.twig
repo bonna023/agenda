@@ -27,7 +27,7 @@
             <td>{{utilisateur.email}}</td>
             {% if utilisateur.numEtudiant is defined and utilisateur.numEtudiant is not null %}
               <td>{{utilisateur.numEtudiant}}</td>
-            {% else %}
+            {% elseif nomEntite =='Etudiant' %}
               <td> NULL </td>
             {% endif %}
             {% if utilisateur.lastLogin is defined and utilisateur.lastLogin is not null %}

@@ -24,15 +24,15 @@ class Type
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255)
      */
-    private $type;
+    private $nom;
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -42,23 +42,23 @@ class Type
     /**
      * Set type
      *
-     * @param string $type
-     * @return Type
+     * @param string $nom
+     * @return nom
      */
-    public function setType($type)
+    public function setNom($nom)
     {
-        $this->type = $type;
+        $this->nom = $nom;
 
         return $this;
     }
 
     /**
-     * Get type
+     * Get nom
      *
-     * @return string 
+     * @return string
      */
-    public function getType()
+    public function getNom()
     {
-        return $this->type;
+        return $this->nom;
     }
 }

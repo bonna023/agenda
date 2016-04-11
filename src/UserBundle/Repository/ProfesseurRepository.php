@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProfesseurRepository extends EntityRepository
 {
+  public function getMatieres($id){
+    $qb = $this->createQueryBuilder('a')
+    ->where('a.id = :id')
+    ->setParameter('id', $id)
+    ->leftJoin('a.prof_matieres' ,'pm')
+    ->addSelect('pm')
+    ->leftJoin('pm.matiere','m')
+    ->addSelect('m');
+    return $qb->getQuery()->getResult();
+  }
 }

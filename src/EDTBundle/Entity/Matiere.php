@@ -29,7 +29,7 @@ class Matiere
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\ProfMatiere", mappedBy="matiere_profs")
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\ProfMatiere", mappedBy="matiere")
      */
     private $matiere_profs;
 
@@ -39,6 +39,13 @@ class Matiere
      */
      private $seances;
 
+     /*
+      * toString()
+      * @return string
+
+      public function __toString(){
+        return $this->getName();
+      }*/
     /**
      * Get id
      *

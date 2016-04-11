@@ -36,6 +36,7 @@ class Professeur extends User
 
      public function __construct(){
        $this->prof_matieres = new ArrayCollection();
+       parent::__construct();
      }
 
     /**

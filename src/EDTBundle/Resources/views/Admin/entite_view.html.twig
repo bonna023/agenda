@@ -3,7 +3,7 @@
 {%block admin_body %}
 <div class="row">
   <div class="col-md-6">
-    <a href="{{path(route_add)}}">
+    <a href="{{path(route_add, {'entite' : nomEntite})}}">
       <button type="button" class="btn btn-lg btn-primary">
         Ajouter
       </button>
@@ -23,7 +23,7 @@
         {% for nom in nomAttributs %}
           <td>{{ attribute(entite,nom) }} </td>
         {% endfor %}
-        <td><a href="{{path( route_edit, {'id': entite.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+        <td><a href="{{path( route_edit, {'entite': nomEntite , 'id': entite.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
         <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': entite.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
       </tr>
      {% endfor %}
