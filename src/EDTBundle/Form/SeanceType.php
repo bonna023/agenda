@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class MatiereType extends AbstractType
+class SeanceType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,14 +17,12 @@ class MatiereType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('seances', Type\CollectionType::class, array(
-                 'entry_type'         => SeanceType::class,
-                 'allow_add'    => true,
-                 'allow_delete' => true,
-                 
-               ))
-            ->add('save', Type\SubmitType::class)
+          ->add('type',EntityType::class,
+            ['class' => 'EDTBundle:Type',
+             'choice_label' =>'nom',
+             'multiple' =>false
+            ])
+            ->add('nbHeures')
         ;
     }
 
@@ -34,7 +32,7 @@ class MatiereType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'EDTBundle\Entity\Matiere'
+            'data_class' => 'EDTBundle\Entity\Seance'
         ));
     }
 }

@@ -150,11 +150,37 @@ class AdminController extends Controller
       $form = $this->get('form.factory')->create( MatiereType::class, $matiere);
       //le formulaire généré va hydrater l'objet $salle
       if ($form->handleRequest($request)->isValid()){
-        $em=$this->getDoctrine()->getManager();
-        $em->persist($matiere);
-        $em->flush();
+        /*
+         A voir si il y mieux :
+           1)mémoriser les seances dans une autre zone mémoire
+           2)suppression des séances attachées à la matiere
+             car on ne connait pas encore l'id de la matiere est donc impossible de persister avec une clé
+             matiere_id à null pour les séances
+          3) persist de la matiere sans les séances
+          4) pour chaque séance mémorisée, on lui indique la matiere
+          5) persist des seances qui possède mtn l'id de la matiere.
+        */
+        // suppression de la persistance en cascade dans l'entity matiere pour l'attribut seance.
+       //$seances = clone $matiere->getSeances(); // -- Suprrime le 12 /04/16
+       // $matiere->getSeances()->clear(); // -- supprime le 12/04/16
+
+      //$seances = $form->getData()->getSeances();// remplacement 1 par cette ligne de code le 12/04/16
+      $seances = $matiere->getSeances(); // remplacement 2 ; a voir quelle est la meilleur méthode... 
+       // --- Fin du cas 1/2 ---
+       // On enregistre l'objet $article dans la base de donnÃ©es
+       $em = $this->getDoctrine()->getManager();
+       $em->persist($matiere);
+      // $em->flush();
+       foreach ($seances as $seance) {
+         $seance->setMatiere($matiere);
+         $em->persist($seance);
+       }
+       $em->flush();
+       // --- Fin du cas 2/2 ---
+      // - See more at: http://www.tutoriel-symfony2.fr/livre/codesource#sthash.7XJurIje.dpuf
+
         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Salle']));
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Matiere']));
       }
       return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
     }
@@ -183,7 +209,7 @@ class AdminController extends Controller
       $em->remove($entite_a_supprimer);
       $em->flush();
       $url = $this->generateUrl('admin_home_page');
-      return new Response('<body>Entite bien supprimee. Page admin : '.$url.' </body>');
+      return new Response('<body>Entite bien supprimee.<a href='.$url.'> Page admin</a></body>');
     }
 
 

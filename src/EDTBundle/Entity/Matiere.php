@@ -29,13 +29,14 @@ class Matiere
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\ProfMatiere", mappedBy="matiere")
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\ProfMatiere", mappedBy="matiere",cascade={"remove"})
      */
     private $matiere_profs;
 
     /**
-     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\Seance", mappedBy="matiere")
+     * @ORM\OneToMany(targetEntity="EDTBundle\Entity\Seance", mappedBy="matiere",  cascade={"remove"})
      * une matiere possède plusieurs séances : 30 h de Cm, 10 h de TD, ....
+     * // suppression de la persistance en cascade le 12/04/16 --> voir le formulaire de la matiere pour plus de précision
      */
      private $seances;
 
@@ -126,24 +127,24 @@ class Matiere
     /**
      * Add seances
      *
-     * @param \EDTBundle\Entity\Seance $seances
+     * @param \EDTBundle\Entity\Seance $seance
      * @return Matiere
      */
-    public function addSeance(\EDTBundle\Entity\Seance $seances)
+    public function addSeance(\EDTBundle\Entity\Seance $seance)
     {
-        $this->seances[] = $seances;
-        $seances->setMatiere($this);
+        $this->seances[] = $seance;
+        $seance->setMatiere($this);
         return $this;
     }
 
     /**
      * Remove seances
      *
-     * @param \EDTBundle\Entity\Seance $seances
+     * @param \EDTBundle\Entity\Seance $seance
      */
-    public function removeSeance(\EDTBundle\Entity\Seance $seances)
+    public function removeSeance(\EDTBundle\Entity\Seance $seance)
     {
-        $this->seances->removeElement($seances);
+        $this->seances->removeElement($seance);
     }
 
     /**

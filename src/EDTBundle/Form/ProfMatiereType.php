@@ -18,7 +18,7 @@ class ProfMatiereType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('responsable', Type\RadioType::class, ['required' =>false])
+            ->add('responsable', Type\CheckboxType::class, ['required' =>false])
             ->add('matiere',EntityType::class,
                 ['class' => 'EDTBundle:Matiere',
                  'choice_label' =>'nom',

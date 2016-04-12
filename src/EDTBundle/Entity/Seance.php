@@ -31,14 +31,15 @@ class Seance
     /**
      * @var Type
      *
-     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Type" , cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Type" , cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      * PLusieurs seances peuvent avoir le même type, (30 heures de Cm en infoXXX et 10 heures de CM en MAXXX)
+     * pas de cascade pour la suppresion => car un type peux concerner d'autre matiere.
      */
      private $type;
 
      /**
-      *@ORM\ManyToOne(targetEntity="EDTBundle\Entity\Matiere", inversedBy="seances")
+      *@ORM\ManyToOne(targetEntity="EDTBundle\Entity\Matiere", inversedBy="seances", cascade={"persist"})
       *@ORM\JoinColumn(nullable=false)
       * plusieurs séances sont attachées à une et une seule matière :
       * 10 h de CM, 20 h de TP,...
@@ -140,7 +141,7 @@ class Seance
     /**
      * Get matiere
      *
-     * @return \EDTBundle\Entity\Matiere 
+     * @return \EDTBundle\Entity\Matiere
      */
     public function getMatiere()
     {
