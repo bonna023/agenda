@@ -28,6 +28,7 @@
 	{% endblock %}
 </head>
 <body>
+	{% if is_granted("IS_AUTHENTICATED_FULLY") %}
 	<div class="container">
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -62,6 +63,7 @@
 			</div>
 		</nav>
 	</div>
+	{% endif %}
 
 	<div class="container-fluid">
 		{% block body %}{% endblock %}

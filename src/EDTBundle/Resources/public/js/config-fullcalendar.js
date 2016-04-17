@@ -19,7 +19,7 @@ console.log(annee + '-' + mois + '-' + jour);
 		eventLimit: true, // allow "more" link when too many events
 		events: [
 			{
-					title: 'Meeting',
+					title: 'Test...',
 					start: '2016-04-18T10:30:00',
 					end: '2016-04-18T12:30:00'
 			}
