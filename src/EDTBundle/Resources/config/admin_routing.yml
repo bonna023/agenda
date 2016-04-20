@@ -32,6 +32,18 @@ edt_entite_view:
 
 
 
+# route spécifique à chaque entité pour ajouter/modofier
+# SALLE
+edt_Salle_edit:
+    path:   /edit/Salle/{id}
+    defaults: {_controller: EDTBundle:Admin:editerSalle}
+    requirements:
+        id : \d+
+
+edt_Salle_add:
+    path:   /add/Salle
+    defaults: {_controller: EDTBundle:Admin:ajouterSalle}
+
 #route generique à toutes les entités
 edt_entite_delete:
     path:   /{entite}/delete/{id}
@@ -53,17 +65,7 @@ edt_entite_edit:
         id: \d+
         entite: 'Salle|Matiere|ProfMatiere|Type'
 
-# route spécifique à chaque entité pour ajouter/modofier
-edt_Salle_edit:
-    path:   /edit/Salle/{id}
-    defaults: {_controller: EDTBundle:Admin:editerSalle}
-    requirements:
-        id : \d+
-
-edt_Salle_add:
-    path:   /add/Salle
-    defaults: {_controller: EDTBundle:Admin:ajouterSalle}
-
+# MATIERE
 edt_Matiere_edit:
     path:   /edit/Matiere/{id}
     defaults: {_controller: EDTBundle:Admin:editerMatiere}
@@ -71,11 +73,10 @@ edt_Matiere_edit:
 edt_Matiere_add:
     path:  /edit/Matiere
     defaults: {_controller: EDTBundle:Admin:ajouterMatiere}
-
+# PROF MATIERE
 edt_ProfMatiere_add:
     path:  /add/ProfMatiere
     defaults: {_controller: EDTBundle:Admin:ajouter}
-
 
 #route pour les maj de USERs
 edt_user_edit:

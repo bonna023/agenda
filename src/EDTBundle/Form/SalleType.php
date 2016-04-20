@@ -26,7 +26,7 @@ class SalleType extends AbstractType
                  'multiple' =>false
                 ]
             )
-            ->add('save' , Type\SubmitType::class)
+            ->add('ajouter' , Type\SubmitType::class)
 
         ;
         // de base tous les attributs sont required => true

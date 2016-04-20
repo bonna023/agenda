@@ -17,7 +17,7 @@ class ProfesseurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('save' , Type\SubmitType::class)
+            ->add('ajouter' , Type\SubmitType::class)
         ;
     }
 

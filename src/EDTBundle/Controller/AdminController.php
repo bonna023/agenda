@@ -143,8 +143,10 @@ class AdminController extends Controller
         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
         return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Salle']));
       }
-      return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
+      /*return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);*/
+      return $this->render('EDTBundle:Admin/Entite:addSalle.html.twig', ['form' => $form->createView()]);
     }
+
     public function ajouterMatiereAction(Request $request){
       $matiere = new Matiere();
       $form = $this->get('form.factory')->create( MatiereType::class, $matiere);
