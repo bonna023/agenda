@@ -1,5 +1,15 @@
 {% extends "::base.html.twig"%}
 
+{% block javascripts %}
+  {{parent()}}
+  <script>
+    $(".nav li").on("click", function() {
+      $(".nav li").removeClass("active");
+      $(this).addClass("active");
+    });
+  </script>
+{% endblock %}
+
 {%block body %}
 
   <div id="menu" class="col-md-2 col-md-offset-0">

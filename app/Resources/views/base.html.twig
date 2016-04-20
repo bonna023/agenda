@@ -12,20 +12,6 @@
 	<link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/edt/css/fullcalendar.css') }}" />
 	<link rel="stylesheet" 	type="text/css" 	href="{{asset('bundles/edt/css/style.css')}}">
 	{% endblock %}
-
-	{% block javascripts %}
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/moment.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/jquery-1.12.3.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/fullcalendar.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/lang-all.js') }}"></script>
-	
-	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script> #}
-	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script> #}
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/bootstrap.js') }}"></script>
-	{#<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>#}
-	{#<script type="text/javascript" src="{{ asset('bundles/edt/js/router.js') }}"></script>#}
-	{% endblock %}
 </head>
 <body>
 	{% if is_granted("IS_AUTHENTICATED_FULLY") %}
@@ -69,7 +55,20 @@
 		{% block body %}{% endblock %}
 	</div>
 
+	{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/moment.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/jquery-1.12.3.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/fullcalendar.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/lang-all.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/config-fullcalendar.js') }}"></script>
+	
+	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script> #}
+	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script> #}
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/bootstrap.js') }}"></script>
+	{#<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>#}
+	{#<script type="text/javascript" src="{{ asset('bundles/edt/js/router.js') }}"></script>#}
+	{% endblock %}
 
 	<footer class="footer">
 		<div class="container-fluid text-muted">

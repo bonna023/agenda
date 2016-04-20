@@ -1,3 +1,7 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
 body { padding-top: 70px; 
 
   /* Margin bottom by footer height */
@@ -12,6 +16,7 @@ body { padding-top: 70px;
   height: 40px;
   background-color: #f5f5f5;
 }
+
 /* FULLCALENDAR */
 #calendar {
 	max-width: 900px;
