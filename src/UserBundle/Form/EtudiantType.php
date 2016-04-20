@@ -17,7 +17,7 @@ class EtudiantType extends AbstractType
     {
         $builder
             ->add('numEtudiant')
-            ->add('save' , Type\SubmitType::class)
+            ->add('ajouter' , Type\SubmitType::class)
         ;
     }
 
