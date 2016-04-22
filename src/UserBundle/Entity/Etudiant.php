@@ -28,6 +28,12 @@ class Etudiant extends User
      */
     protected $numEtudiant;
 
+    /**
+     * @var Groupe
+     *
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Groupe") inversedBy ="etudiants")
+     */
+     private $groupe;
 
     /**
      * Get id
@@ -61,5 +67,30 @@ class Etudiant extends User
     public function getNumEtudiant()
     {
         return $this->numEtudiant;
+    }
+
+
+
+    /**
+     * Set groupe
+     *
+     * @param \EDTBundle\Entity\Groupe $groupe
+     * @return Etudiant
+     */
+    public function setGroupe(\EDTBundle\Entity\Groupe $groupe = null)
+    {
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \EDTBundle\Entity\Groupe 
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
     }
 }

@@ -38,20 +38,20 @@ edt_entite_delete:
     defaults: {_controller: EDTBundle:Admin:deleteEntite}
     requirements:
       id : \d+
-      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type'
+      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type|Groupe'
 
 edt_entite_add:
     path:  /add/{entite}
     defaults: {_controller: EDTBundle:Admin:addEntite}
     requirements:
-      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type'
+      entite: 'Salle|Matiere|Etudiant|Professeur|ProfMatiere|Type|Groupe'
 
 edt_entite_edit:
     path: /edit/{entite}/{id}
     defaults: {_controller: EDTBundle:Admin:editEntite}
     requirements:
         id: \d+
-        entite: 'Salle|Matiere|ProfMatiere|Type'
+        entite: 'Salle|Matiere|ProfMatiere|Type|Groupe'
 
 # route spécifique à chaque entité pour ajouter/modofier
 edt_Salle_edit:

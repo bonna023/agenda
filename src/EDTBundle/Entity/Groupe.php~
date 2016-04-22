@@ -1,0 +1,111 @@
+<?php
+
+namespace EDTBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Groupe
+ *
+ * @ORM\Table(name="groupe")
+ * @ORM\Entity(repositoryClass="EDTBundle\Repository\GroupeRepository")
+ */
+class Groupe
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="UserBundle\Entity\User", mappedBy="groupe")
+     */
+     private $etudiants;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Groupe
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->etudiants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add etudiants
+     *
+     * @param \UserBundle\Entity\User $etudiants
+     * @return Groupe
+     */
+    public function addEtudiant(\UserBundle\Entity\User $etudiants)
+    {
+        $this->etudiants[] = $etudiants;
+
+        return $this;
+    }
+
+    /**
+     * Remove etudiants
+     *
+     * @param \UserBundle\Entity\User $etudiants
+     */
+    public function removeEtudiant(\UserBundle\Entity\User $etudiants)
+    {
+        $this->etudiants->removeElement($etudiants);
+    }
+
+    /**
+     * Get etudiants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEtudiants()
+    {
+        return $this->etudiants;
+    }
+}
