@@ -24,4 +24,34 @@ class User extends BaseUser
    */
   protected $id;
 
+  /**
+   * @var Groupe
+   *
+   * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Groupe") inversedBy ="etudiants")
+   */
+   private $groupe;
+
+
+    /**
+     * Set groupe
+     *
+     * @param \EDTBundle\Entity\Groupe $groupe
+     * @return User
+     */
+    public function setGroupe(\EDTBundle\Entity\Groupe $groupe = null)
+    {
+        $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \EDTBundle\Entity\Groupe
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
+    }
 }

@@ -20,6 +20,8 @@ use EDTBundle\Form\SalleType;
 use EDTBundle\Form\MatiereType;
 use EDTBundle\Entity\ProfMatiere;
 use EDTBundle\Form\ProfMatiereType;
+use EDTBundle\Entity\Groupe;
+use EDTBundle\Form\GroupeType;
 
 
 /**
@@ -112,7 +114,11 @@ class AdminController extends Controller
         break;
         case 'ProfMatiere':
           $objet = new ProfMatiere();
-          $form = $formFactory->create (ProfMatiereType::class, $objet);
+          $form = $formFactory->create(ProfMatiereType::class, $objet);
+        break;
+        case 'Groupe':
+          $objet= new Groupe();
+          $form = $formFactory->create(GroupeType::class, $objet);
         break;
       }
       //le formulaire généré va hydrater l'objet $salle
@@ -167,7 +173,7 @@ class AdminController extends Controller
        // $matiere->getSeances()->clear(); // -- supprime le 12/04/16
 
       //$seances = $form->getData()->getSeances();// remplacement 1 par cette ligne de code le 12/04/16
-      $seances = $matiere->getSeances(); // remplacement 2 ; a voir quelle est la meilleur méthode... 
+      $seances = $matiere->getSeances(); // remplacement 2 ; a voir quelle est la meilleur méthode...
        // --- Fin du cas 1/2 ---
        // On enregistre l'objet $article dans la base de donnÃ©es
        $em = $this->getDoctrine()->getManager();

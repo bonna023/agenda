@@ -28,6 +28,12 @@ class Etudiant extends User
      */
     protected $numEtudiant;
 
+    /**
+     * @var Groupe
+     *
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Groupe") inversedBy ="etudiants")
+     */
+     private $groupe;
 
     /**
      * Get id
@@ -62,4 +68,6 @@ class Etudiant extends User
     {
         return $this->numEtudiant;
     }
+
+
 }
