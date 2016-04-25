@@ -17,7 +17,7 @@ $(function () {
 
             // for all other views
             '': 'h:mmt'         // 7p
-        }/*,
+        },
         eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
@@ -28,7 +28,7 @@ $(function () {
                 error: function() {
                    //alert('There was an error while fetching Google Calendar!');
                 }
-            }*/
+            }
         ]
     });
 });

@@ -1,15 +1,6 @@
 services:
-#    edt.example:
-#        class: EDTBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
-
-# EDTBundle.EventListener:
-#   class: EDTBundle\EventListener\CalendarEventListener
-#   tags:
-#   - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
-#   arguments: ["doctrine.orm.entity_manager", @service_container]
-
-# <service id="acme.demobundle.calendar_listener" class="Acme\DemoBundle\EventListener\CalendarEventListener">
-#     <argument type="service" id="doctrine.orm.entity_manager" />
-#     <tag name="kernel.event_listener" event="calendar.load_events" method="loadEvents" />
-# </service>
+  edtbundle.calendar_listener:
+    class: EDTBundle\EventListener\CalendarEventListener
+    tags:
+    - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
+    arguments: ["doctrine.orm.entity_manager", @service_container]

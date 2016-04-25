@@ -19,11 +19,13 @@ console.log(annee + '-' + mois + '-' + jour);
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {
-			var title = prompt('Nom de l\'évènement: ');
+			var title = prompt('Titre : ');
+			var description = prompt('Description: ');
 			var eventData;
 			if (title) {
 				eventData = {
 					title: title,
+					description: description,
 					start: start,
 					end: end
 				};
@@ -34,13 +36,34 @@ console.log(annee + '-' + mois + '-' + jour);
 
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
-		events: [
+/*		events: [
 			{
 					title: 'Test...',
 					start: '2016-04-18T10:30:00',
 					end: '2016-04-18T12:30:00'
 			}
-		]
+		],*/
+
+/*		eventSources: [
+            {
+                url: Routing.generate('fullcalendar_loader'),
+                type: 'POST',
+                // A way to add custom filters to your event listeners
+                data: {
+                },
+                error: function() {
+                   //alert('There was an error while fetching Google Calendar!');
+                }
+            }
+        ],*/
+
+        eventClick:  function(event, jsEvent, view) {
+            $('#modalTitle').html(event.title);
+            $('#modalBody').html(event.description);
+            $('#eventUrl').attr('href',event.url);
+            $('#fullCalModal').modal();
+        }
+
 	});
 	
 });

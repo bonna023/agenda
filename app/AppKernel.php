@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new EDTBundle\EDTBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
