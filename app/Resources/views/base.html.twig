@@ -8,8 +8,14 @@
 	{% block stylesheets %}
 	<link rel="icon" 		type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 	<link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/edt/css/bootstrap.css') }}">
-	{# <link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" /> #}
+	
+	{# fourni avec calendar-bundle 	(v1.5.3) #}
+	{# <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" /> #}
+
+	{# version ajoutée manuellement (v2.6.1) #}
 	<link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/edt/css/fullcalendar.css') }}" />
+	
+	{# css à part #}
 	<link rel="stylesheet" 	type="text/css" 	href="{{asset('bundles/edt/css/style.css')}}">
 	{% endblock %}
 </head>
@@ -56,18 +62,21 @@
 	</div>
 
 	{% block javascripts %}
+	{# ajout manuel (v2.6.1) #}
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/moment.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/jquery-1.12.3.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/fullcalendar.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/lang-all.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/config-fullcalendar.js') }}"></script>
 
-	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script> #}
-	{# <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script> #}
+	{# issu de calendar-bundle 	(v1.5.3) #}
+	{#<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>#}
+
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/bootstrap.js') }}"></script>
-	{#<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>#}
-	{#<script type="text/javascript" src="{{ asset('bundles/edt/js/router.js') }}"></script>#}
+
+	<script type="text/javascript" src="{{ asset('bundles/edt/js/router.js') }}"></script>
 	{% endblock %}
 
 	<footer class="footer">

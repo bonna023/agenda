@@ -6,7 +6,7 @@ $(document).ready(function() {
 	var annee = date.getFullYear();
 console.log(annee + '-' + mois + '-' + jour);
 
-	$('#calendar').fullCalendar({
+	$('#calendar-holder').fullCalendar({
 		header: {
 			left: 'prev,next today',
 			center: 'title',
@@ -15,6 +15,23 @@ console.log(annee + '-' + mois + '-' + jour);
 		lang: 'fr',
 		defaultView: 'agendaWeek',
 		defaultDate: annee + '-' + mois + '-' + jour, // '2016-01-12'
+
+		selectable: true,
+		selectHelper: true,
+		select: function(start, end) {
+			var title = prompt('Nom de l\'évènement: ');
+			var eventData;
+			if (title) {
+				eventData = {
+					title: title,
+					start: start,
+					end: end
+				};
+				$('#calendar-holder').fullCalendar('renderEvent', eventData, true); // stick? = true
+			}
+			$('#calendar-holder').fullCalendar('unselect');
+		},
+
 		editable: true,
 		eventLimit: true, // allow "more" link when too many events
 		events: [
