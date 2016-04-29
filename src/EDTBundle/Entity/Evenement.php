@@ -3,6 +3,7 @@
 namespace EDTBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections;
 
 /**
  * Evenement
@@ -75,6 +76,23 @@ class Evenement
     protected $allDay = false;
 
     /**
+     *
+     * @ORM\ManyToMany(targetEntity="EDTBundle\Entity\Groupe")
+     */
+    protected $groupes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Salle")
+     */
+    protected $salle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Professeur")
+     * un évènement peut possèder plusieurs intervenants
+     */
+    protected $professeur;
+
+    /**
      * @var array Non-standard fields
      */
     protected $otherFields = array();
@@ -84,6 +102,7 @@ class Evenement
         $this->title = $title;
         $this->startDatetime = $startDatetime;
         $this->setAllDay($allDay);
+        $this->groupe = ArrayCollection();
         
         if ($endDatetime === null && $this->allDay === false) {
             throw new \InvalidArgumentException("Must specify an event End DateTime if not an all day event.");
@@ -270,5 +289,92 @@ class Evenement
     public function getDatetime()
     {
         return $this->datetime;
+    }
+
+    /**
+     * Add groupe
+     *
+     * @param \EDTBundle\Entity\Groupe $groupe
+     * @return Evenement
+     */
+    public function addGroupe(\EDTBundle\Entity\Groupe $groupe)
+    {
+        $this->groupe[] = $groupe;
+
+        return $this;
+    }
+
+    /**
+     * Remove groupe
+     *
+     * @param \EDTBundle\Entity\Groupe $groupe
+     */
+    public function removeGroupe(\EDTBundle\Entity\Groupe $groupe)
+    {
+        $this->groupe->removeElement($groupe);
+    }
+
+    /**
+     * Get groupe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroupe()
+    {
+        return $this->groupe;
+    }
+
+    /**
+     * Set salle
+     *
+     * @param \EDTBundle\Entity\Salle $salle
+     * @return Evenement
+     */
+    public function setSalle(\EDTBundle\Entity\Salle $salle = null)
+    {
+        $this->salle = $salle;
+
+        return $this;
+    }
+
+    /**
+     * Get salle
+     *
+     * @return \EDTBundle\Entity\Salle 
+     */
+    public function getSalle()
+    {
+        return $this->salle;
+    }
+
+    /**
+     * Get professeur
+     */
+    public function getProfesseur()
+    {
+        return $this->professeur;
+    }
+
+    /**
+     * Set professeur
+     *
+     * @param \UserBundle\Entity\Professeur $professeur
+     * @return Evenement
+     */
+    public function setProfesseur(\UserBundle\Entity\Professeur $professeur = null)
+    {
+        $this->professeur = $professeur;
+
+        return $this;
+    }
+
+    /**
+     * Get groupes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroupes()
+    {
+        return $this->groupes;
     }
 }
