@@ -2,8 +2,8 @@
 namespace EDTBundle\EventListener;
 
 use ADesigns\CalendarBundle\Event\CalendarEvent;
-/*use ADesigns\CalendarBundle\Entity\EventEntity;*/
-use EDTBUndle\Entity\Evenement as EventEntity;
+use ADesigns\CalendarBundle\Entity\EventEntity;
+/*use EDTBUndle\Entity\Evenement as EventEntity;*/
 use Doctrine\ORM\EntityManager;
 
 class CalendarEventListener
@@ -36,6 +36,9 @@ class CalendarEventListener
                           ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
                           ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
                           ->getQuery()->getResult();
+
+        dump($companyEvent);die;
+
 
         // $companyEvents and $companyEvent in this example
         // represent entities from your database, NOT instances of EventEntity

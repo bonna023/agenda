@@ -1,9 +1,6 @@
 <?php
-
 namespace EDTBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Evenement
  *
@@ -19,49 +16,16 @@ class Evenement
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
     /**
      * @var string Title/label of the calendar event.
      * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
-
     /**
-     * @var string URL Relative to current path.
-     * @ORM\Column(name="url", type="string", length=255)
-     */
-    protected $url;
-
-    /**
-     * @var string HTML color code for the bg color of the event label.
-     * @ORM\Column(name="bgColor", type="string", length=255)
-     */
-    protected $bgColor;
-
-    /**
-     * @var string HTML color code for the foregorund color of the event label.
-     * @ORM\Column(name="fgColor", type="string", length=255)
-     */
-    protected $fgColor;
-
-    /**
-     * @var string css class for the event label
-     * @ORM\Column(name="cssClass", type="string", length=255)
-     */
-    protected $cssClass;
-
-    /**
-     * @var \DateTime DateTime object of the event start date/time.
-     * @ORM\Column(type="datetime", name="datetime")
-     */
-    protected $datetime;
-
-    /**
-     * @var \DateTime DateTime object of the event start date/time.
+     * @var \DateTime DateTime object of the event end date/time.
      * @ORM\Column(type="datetime", name="startDatetime")
      */
     protected $startDatetime;
-
     /**
      * @var \DateTime DateTime object of the event end date/time.
      * @ORM\Column(type="datetime", name="endDatetime")
@@ -69,28 +33,19 @@ class Evenement
     protected $endDatetime;
 
     /**
-     * @var boolean Is this an all day event?
-     * @ORM\Column(type="boolean", name="allDay")
-     */
-    protected $allDay = false;
-
-    /**
      *
      * @ORM\ManyToMany(targetEntity="EDTBundle\Entity\Groupe")
      */
     protected $groupes;
-
     /**
      * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Salle")
      */
     protected $salle;
-
     /**
      * @ORM\ManyToOne(targetEntity="UserBundle\Entity\Professeur")
      * un évènement peut possèder plusieurs intervenants
      */
     protected $professeur;
-
     /**
      * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Matiere")
      * un événement est attributée à une seule matière, mais une matière peut AVOIR
@@ -98,206 +53,50 @@ class Evenement
      */
      protected $matiere;
 
-    /**
-     * @var array Non-standard fields
-     */
-    protected $otherFields = array();
-
     public function __construct()
     {
-        $this->title = "";
-        $this->startDatetime = null;
-        $this->setAllDay(false);
+
         $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
-        /*$this->salle = new \Doctrine\Common\Collections\ArrayCollection();*/
-        /*$this->professeur = new \Doctrine\Common\Collections\ArrayCollection();*/
-        $this->endDatetime = null;
 
-        /*if ($endDatetime === null && $this->allDay === false) {
-            throw new \InvalidArgumentException("Must specify an event End DateTime if not an all day event.");
-        }   */
-    }
-
-    /**
-     * Convert calendar event details to an array
-     *
-     * @return array $event
-     */
-    public function toArray()
-    {
-        $event = array();
-
-        if ($this->id !== null) {
-            $event['id'] = $this->id;
-        }
-
-        $event['title'] = $this->title;
-        $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
-
-        if ($this->url !== null) {
-            $event['url'] = $this->url;
-        }
-
-        if ($this->bgColor !== null) {
-            $event['backgroundColor'] = $this->bgColor;
-            $event['borderColor'] = $this->bgColor;
-        }
-
-        if ($this->fgColor !== null) {
-            $event['textColor'] = $this->fgColor;
-        }
-
-        if ($this->cssClass !== null) {
-            $event['className'] = $this->cssClass;
-        }
-
-        if ($this->endDatetime !== null) {
-            $event['end'] = $this->endDatetime->format("Y-m-d\TH:i:sP");
-        }
-
-        $event['allDay'] = $this->allDay;
-
-        foreach ($this->otherFields as $field => $value) {
-            $event[$field] = $value;
-        }
-
-        return $event;
     }
 
     public function setId($id)
     {
         $this->id = $id;
     }
-
     public function getId()
     {
         return $this->id;
     }
-
     public function setTitle($title)
     {
         $this->title = $title;
     }
-
     public function getTitle()
     {
         return $this->title;
-    }
-
-    public function setUrl($url)
-    {
-        $this->url = $url;
-    }
-
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    public function setBgColor($color)
-    {
-        $this->bgColor = $color;
-    }
-
-    public function getBgColor()
-    {
-        return $this->bgColor;
-    }
-
-    public function setFgColor($color)
-    {
-        $this->fgColor = $color;
-    }
-
-    public function getFgColor()
-    {
-        return $this->fgColor;
-    }
-
-    public function setCssClass($class)
-    {
-        $this->cssClass = $class;
-    }
-
-    public function getCssClass()
-    {
-        return $this->cssClass;
     }
 
     public function setStartDatetime(\DateTime $start)
     {
         $this->startDatetime = $start;
     }
-
     public function getStartDatetime()
     {
         return $this->startDatetime;
     }
-
     public function setEndDatetime(\DateTime $end)
     {
         $this->endDatetime = $end;
     }
-
     public function getEndDatetime()
     {
         return $this->endDatetime;
     }
 
-    public function setAllDay($allDay = false)
-    {
-        $this->allDay = (boolean) $allDay;
+    public function getAllDayEvent(){
+      return false;
     }
-
-    public function getAllDay()
-    {
-        return $this->allDay;
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     */
-    public function addField($name, $value)
-    {
-        $this->otherFields[$name] = $value;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function removeField($name)
-    {
-        if (!array_key_exists($name, $this->otherFields)) {
-            return;
-        }
-
-        unset($this->otherFields[$name]);
-    }
-
-    /**
-     * Set datetime
-     *
-     * @param \DateTime $datetime
-     * @return Evenement
-     */
-    public function setDatetime($datetime)
-    {
-        $this->datetime = $datetime;
-
-        return $this;
-    }
-
-    /**
-     * Get datetime
-     *
-     * @return \DateTime
-     */
-    public function getDatetime()
-    {
-        return $this->datetime;
-    }
-
     /**
      * Add groupe
      *
@@ -307,10 +106,8 @@ class Evenement
     public function addGroupe(\EDTBundle\Entity\Groupe $groupe)
     {
         $this->groupe[] = $groupe;
-
         return $this;
     }
-
     /**
      * Remove groupe
      *
@@ -320,7 +117,6 @@ class Evenement
     {
         $this->groupe->removeElement($groupe);
     }
-
     /**
      * Get groupe
      *
@@ -330,7 +126,6 @@ class Evenement
     {
         return $this->groupe;
     }
-
     /**
      * Set salle
      *
@@ -340,10 +135,8 @@ class Evenement
     public function setSalle(\EDTBundle\Entity\Salle $salle = null)
     {
         $this->salle = $salle;
-
         return $this;
     }
-
     /**
      * Get salle
      *
@@ -353,7 +146,6 @@ class Evenement
     {
         return $this->salle;
     }
-
     /**
      * Get professeur
      */
@@ -361,7 +153,6 @@ class Evenement
     {
         return $this->professeur;
     }
-
     /**
      * Set professeur
      *
@@ -371,10 +162,8 @@ class Evenement
     public function setProfesseur(\UserBundle\Entity\Professeur $professeur = null)
     {
         $this->professeur = $professeur;
-
         return $this;
     }
-
     /**
      * Get groupes
      *
@@ -384,7 +173,6 @@ class Evenement
     {
         return $this->groupes;
     }
-
     /**
      * Set matiere
      *
@@ -394,10 +182,8 @@ class Evenement
     public function setMatiere(\EDTBundle\Entity\Matiere $matiere = null)
     {
         $this->matiere = $matiere;
-
         return $this;
     }
-
     /**
      * Get matiere
      *

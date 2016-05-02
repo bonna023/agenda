@@ -52,7 +52,7 @@ console.log(annee + '-' + mois + '-' + jour);
                 data: {
                 },
                 error: function() {
-                   //alert('There was an error while fetching Google Calendar!');
+                   alert('There was an error while fetching Google Calendar!');
                 }
             }
         ],

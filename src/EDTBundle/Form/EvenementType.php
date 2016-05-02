@@ -18,14 +18,8 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('url')
-            ->add('bgColor')
-            ->add('fgColor')
-            ->add('cssClass')
-            ->add('datetime', 'datetime')
             ->add('startDatetime', 'datetime')
             ->add('endDatetime', 'datetime')
-            ->add('allDay')
             ->add('groupes',EntityType::class,
                 ['class' => 'EDTBundle:Groupe',
                  'choice_label' =>'nom',
