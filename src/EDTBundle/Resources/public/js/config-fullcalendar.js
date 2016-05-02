@@ -61,13 +61,13 @@ console.log(annee + '-' + mois + '-' + jour);
                 }
             }
         ],
-/*
+
         eventClick:  function(event, jsEvent, view) {
             $('#modalTitle').html(event.title);
             $('#modalBody').html(event.description);
             $('#eventUrl').attr('href',event.url);
             $('#fullCalModal').modal();
-        }*/
+        }
 
 	});
 
