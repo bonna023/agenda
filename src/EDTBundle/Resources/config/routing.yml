@@ -5,9 +5,3 @@ edt_homepage:
 edt_a_propos:
     path:     /A_propos
     defaults: {_controller:  EDTBundle:Default:a_propos}
-
-fullcalendar_loader:
-    path: /fc-load-calendar-events
-    defaults: { _controller: ADesignsCalendarBundle:Calendar:loadCalendar }
-    options:
-        expose: true

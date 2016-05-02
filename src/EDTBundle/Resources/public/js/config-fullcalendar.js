@@ -1,3 +1,5 @@
+//var startEvents;
+//var endEvents;
 $(document).ready(function() {
 	var date = new Date();
 	var jour = date.getDate();
@@ -22,6 +24,8 @@ console.log(annee + '-' + mois + '-' + jour);
 			var title = prompt('Titre : ');
 			var description = prompt('Description: ');
 			var eventData;
+			startEvents = start;
+			endEvents = end;
 			if (title) {
 				eventData = {
 					title: title,
@@ -50,19 +54,20 @@ console.log(annee + '-' + mois + '-' + jour);
                 type: 'POST',
                 // A way to add custom filters to your event listeners
                 data: {
+									//filter: 'my_custom_filter_param'
                 },
                 error: function() {
-                   alert('There was an error while fetching Google Calendar!');
+                  // alert('There was an error while fetching Google Calendar!');
                 }
             }
         ],
-
+/*
         eventClick:  function(event, jsEvent, view) {
             $('#modalTitle').html(event.title);
             $('#modalBody').html(event.description);
             $('#eventUrl').attr('href',event.url);
             $('#fullCalModal').modal();
-        }
+        }*/
 
 	});
 

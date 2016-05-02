@@ -32,12 +32,12 @@ class CalendarEventListener
 
         $companyEvents = $this->entityManager->getRepository('EDTBundle:Evenement')
                           ->createQueryBuilder('company_events')
-                          ->where('company_events.event_datetime BETWEEN :startDate and :endDate')
+                          ->where('company_events.startDatetime BETWEEN :startDate and :endDate')
                           ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
                           ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
                           ->getQuery()->getResult();
 
-        dump($companyEvent);die;
+      /*  dump($companyEvent);die;*/
 
 
         // $companyEvents and $companyEvent in this example
