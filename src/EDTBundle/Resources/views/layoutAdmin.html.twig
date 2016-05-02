@@ -10,7 +10,7 @@
   </script>
 {% endblock %}
 
-{%block body %}
+{% block body %}
 
   <div id="menu" class="col-md-2 col-md-offset-0">
       <h3>-Gestion Entités-</h3>
@@ -18,6 +18,7 @@
              {#path pour appeler d'autre routes #}
            <li><a href="{{path('edt_user_view', {'entite' : 'Etudiant'} )}}">Etudiant</a></li>
            <li><a href="{{path('edt_user_view', {'entite' : 'Professeur'} )}}">Professeur</a></li>
+           <li><a href="{{path('edt_entite_view', {'entite' : 'Evenement'} )}}">Évènement</a></li> 
            <li><a href="{{path('edt_entite_view', {'entite' : 'Salle'} )}}">Salle</a></li>
            <li><a href="{{path('edt_entite_view', {'entite' : 'Matiere'} )}}">Matière</a></li>
            <li><a href="{{path('edt_entite_view', {'entite' : 'ProfMatiere'})}}">Professeur-Matiere</a></li>
@@ -28,8 +29,7 @@
 
 <div class="col-md-8 col-md-offset-1">
   {% block admin_body %}
-
-  {%endblock %}
+  {% endblock %}
 </div>
 
 {%endblock%}

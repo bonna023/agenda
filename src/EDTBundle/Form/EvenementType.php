@@ -4,6 +4,7 @@ namespace EDTBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EvenementType extends AbstractType
@@ -27,6 +28,7 @@ class EvenementType extends AbstractType
             ->add('groupes')
             ->add('salle')
             ->add('professeur')
+            ->add('ajouter' , Type\SubmitType::class)
         ;
     }
     

@@ -3,7 +3,6 @@
 namespace EDTBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections;
 
 /**
  * Evenement
@@ -97,18 +96,19 @@ class Evenement
      */
     protected $otherFields = array();
     
-    public function __construct($title, \DateTime $startDatetime, \DateTime $endDatetime = null, $allDay = false)
+    public function __construct()
     {
-        $this->title = $title;
-        $this->startDatetime = $startDatetime;
-        $this->setAllDay($allDay);
-        $this->groupe = ArrayCollection();
+        $this->title = "";
+        $this->startDatetime = null;
+        $this->setAllDay(false);
+        $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salle = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->professeur = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->endDatetime = null;
         
-        if ($endDatetime === null && $this->allDay === false) {
+        /*if ($endDatetime === null && $this->allDay === false) {
             throw new \InvalidArgumentException("Must specify an event End DateTime if not an all day event.");
-        }
-        
-        $this->endDatetime = $endDatetime;
+        }   */
     }
 
     /**

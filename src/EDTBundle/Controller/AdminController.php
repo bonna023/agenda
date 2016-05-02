@@ -22,6 +22,8 @@ use EDTBundle\Entity\ProfMatiere;
 use EDTBundle\Form\ProfMatiereType;
 use EDTBundle\Entity\Groupe;
 use EDTBundle\Form\GroupeType;
+use EDTBundle\Entity\Evenement;
+use EDTBundle\Form\EvenementType;
 
 
 /**
@@ -119,6 +121,9 @@ class AdminController extends Controller
         case 'Groupe':
           $objet= new Groupe();
           $form = $formFactory->create(GroupeType::class, $objet);
+        case 'Evenement':
+          $objet = new Evenement();
+          $form = $formFactory->create(EvenementType::class, $objet);
         break;
       }
       //le formulaire généré va hydrater l'objet $salle

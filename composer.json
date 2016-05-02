@@ -23,7 +23,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "adesigns/calendar-bundle": "^1.1"
+        "adesigns/calendar-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",
