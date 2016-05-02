@@ -6,7 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use EDTBundle\Entity\Groupe;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class EvenementType extends AbstractType
 {
     /**
@@ -25,13 +26,27 @@ class EvenementType extends AbstractType
             ->add('startDatetime', 'datetime')
             ->add('endDatetime', 'datetime')
             ->add('allDay')
-            ->add('groupes')
-            ->add('salle')
-            ->add('professeur')
+            ->add('groupes',EntityType::class,
+                ['class' => 'EDTBundle:Groupe',
+                 'choice_label' =>'nom',
+                 'multiple' =>true
+                ])
+            ->add('salle', EntityType::class,
+                ['class' => 'EDTBundle:Salle',
+                  'choice_label' => 'numSalle',
+                  'multiple' => false])
+            ->add('professeur', EntityType::class,
+                ['class' => 'UserBundle:Professeur',
+                  'choice_label' => 'username',
+                  'multiple' => false])
+            ->add('matiere', EntityType::class,
+                ['class' => 'EDTBundle:Matiere',
+                 'choice_label' => 'nom',
+                 'multiple' => false])
             ->add('ajouter' , Type\SubmitType::class)
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

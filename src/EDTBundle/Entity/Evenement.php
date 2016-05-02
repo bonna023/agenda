@@ -19,31 +19,31 @@ class Evenement
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var string Title/label of the calendar event.
      * @ORM\Column(name="title", type="string", length=255)
      */
     protected $title;
-    
+
     /**
      * @var string URL Relative to current path.
      * @ORM\Column(name="url", type="string", length=255)
      */
     protected $url;
-    
+
     /**
      * @var string HTML color code for the bg color of the event label.
      * @ORM\Column(name="bgColor", type="string", length=255)
      */
     protected $bgColor;
-    
+
     /**
      * @var string HTML color code for the foregorund color of the event label.
      * @ORM\Column(name="fgColor", type="string", length=255)
      */
     protected $fgColor;
-    
+
     /**
      * @var string css class for the event label
      * @ORM\Column(name="cssClass", type="string", length=255)
@@ -55,19 +55,19 @@ class Evenement
      * @ORM\Column(type="datetime", name="datetime")
      */
     protected $datetime;
-    
+
     /**
      * @var \DateTime DateTime object of the event start date/time.
      * @ORM\Column(type="datetime", name="startDatetime")
      */
     protected $startDatetime;
-    
+
     /**
      * @var \DateTime DateTime object of the event end date/time.
      * @ORM\Column(type="datetime", name="endDatetime")
      */
     protected $endDatetime;
-    
+
     /**
      * @var boolean Is this an all day event?
      * @ORM\Column(type="boolean", name="allDay")
@@ -92,20 +92,27 @@ class Evenement
     protected $professeur;
 
     /**
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Matiere")
+     * un événement est attributée à une seule matière, mais une matière peut AVOIR
+     * plusieurs événement
+     */
+     protected $matiere;
+
+    /**
      * @var array Non-standard fields
      */
     protected $otherFields = array();
-    
+
     public function __construct()
     {
         $this->title = "";
         $this->startDatetime = null;
         $this->setAllDay(false);
         $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->salle = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->professeur = new \Doctrine\Common\Collections\ArrayCollection();
+        /*$this->salle = new \Doctrine\Common\Collections\ArrayCollection();*/
+        /*$this->professeur = new \Doctrine\Common\Collections\ArrayCollection();*/
         $this->endDatetime = null;
-        
+
         /*if ($endDatetime === null && $this->allDay === false) {
             throw new \InvalidArgumentException("Must specify an event End DateTime if not an all day event.");
         }   */
@@ -113,33 +120,33 @@ class Evenement
 
     /**
      * Convert calendar event details to an array
-     * 
-     * @return array $event 
+     *
+     * @return array $event
      */
     public function toArray()
     {
         $event = array();
-        
+
         if ($this->id !== null) {
             $event['id'] = $this->id;
         }
-        
+
         $event['title'] = $this->title;
         $event['start'] = $this->startDatetime->format("Y-m-d\TH:i:sP");
-        
+
         if ($this->url !== null) {
             $event['url'] = $this->url;
         }
-        
+
         if ($this->bgColor !== null) {
             $event['backgroundColor'] = $this->bgColor;
             $event['borderColor'] = $this->bgColor;
         }
-        
+
         if ($this->fgColor !== null) {
             $event['textColor'] = $this->fgColor;
         }
-        
+
         if ($this->cssClass !== null) {
             $event['className'] = $this->cssClass;
         }
@@ -147,13 +154,13 @@ class Evenement
         if ($this->endDatetime !== null) {
             $event['end'] = $this->endDatetime->format("Y-m-d\TH:i:sP");
         }
-        
+
         $event['allDay'] = $this->allDay;
 
         foreach ($this->otherFields as $field => $value) {
             $event[$field] = $value;
         }
-        
+
         return $event;
     }
 
@@ -161,18 +168,18 @@ class Evenement
     {
         $this->id = $id;
     }
-    
+
     public function getId()
     {
         return $this->id;
     }
-    
-    public function setTitle($title) 
+
+    public function setTitle($title)
     {
         $this->title = $title;
     }
-    
-    public function getTitle() 
+
+    public function getTitle()
     {
         return $this->title;
     }
@@ -181,67 +188,67 @@ class Evenement
     {
         $this->url = $url;
     }
-    
+
     public function getUrl()
     {
         return $this->url;
     }
-    
+
     public function setBgColor($color)
     {
         $this->bgColor = $color;
     }
-    
+
     public function getBgColor()
     {
         return $this->bgColor;
     }
-    
+
     public function setFgColor($color)
     {
         $this->fgColor = $color;
     }
-    
+
     public function getFgColor()
     {
         return $this->fgColor;
     }
-    
+
     public function setCssClass($class)
     {
         $this->cssClass = $class;
     }
-    
+
     public function getCssClass()
     {
         return $this->cssClass;
     }
-    
+
     public function setStartDatetime(\DateTime $start)
     {
         $this->startDatetime = $start;
     }
-    
+
     public function getStartDatetime()
     {
         return $this->startDatetime;
     }
-    
+
     public function setEndDatetime(\DateTime $end)
     {
         $this->endDatetime = $end;
     }
-    
+
     public function getEndDatetime()
     {
         return $this->endDatetime;
     }
-    
+
     public function setAllDay($allDay = false)
     {
         $this->allDay = (boolean) $allDay;
     }
-    
+
     public function getAllDay()
     {
         return $this->allDay;
@@ -284,7 +291,7 @@ class Evenement
     /**
      * Get datetime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -317,7 +324,7 @@ class Evenement
     /**
      * Get groupe
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGroupe()
     {
@@ -340,7 +347,7 @@ class Evenement
     /**
      * Get salle
      *
-     * @return \EDTBundle\Entity\Salle 
+     * @return \EDTBundle\Entity\Salle
      */
     public function getSalle()
     {
@@ -371,10 +378,33 @@ class Evenement
     /**
      * Get groupes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGroupes()
     {
         return $this->groupes;
+    }
+
+    /**
+     * Set matiere
+     *
+     * @param \EDTBundle\Entity\Matiere $matiere
+     * @return Evenement
+     */
+    public function setMatiere(\EDTBundle\Entity\Matiere $matiere = null)
+    {
+        $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * Get matiere
+     *
+     * @return \EDTBundle\Entity\Matiere
+     */
+    public function getMatiere()
+    {
+        return $this->matiere;
     }
 }

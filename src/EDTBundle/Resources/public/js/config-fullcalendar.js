@@ -44,7 +44,7 @@ console.log(annee + '-' + mois + '-' + jour);
 			}
 		],*/
 
-/*		eventSources: [
+		eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
                 type: 'POST',
@@ -55,7 +55,7 @@ console.log(annee + '-' + mois + '-' + jour);
                    //alert('There was an error while fetching Google Calendar!');
                 }
             }
-        ],*/
+        ],
 
         eventClick:  function(event, jsEvent, view) {
             $('#modalTitle').html(event.title);
@@ -65,5 +65,5 @@ console.log(annee + '-' + mois + '-' + jour);
         }
 
 	});
-	
+
 });

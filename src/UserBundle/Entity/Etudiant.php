@@ -20,7 +20,7 @@ class Etudiant extends User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
+    
     /**
      * @var string
      *
@@ -31,7 +31,7 @@ class Etudiant extends User
     /**
      * @var Groupe
      *
-     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Groupe") inversedBy ="etudiants")
+     * @ORM\ManyToOne(targetEntity="EDTBundle\Entity\Groupe",  inversedBy ="etudiants")
      */
      private $groupe;
 
@@ -87,7 +87,7 @@ class Etudiant extends User
     /**
      * Get groupe
      *
-     * @return \EDTBundle\Entity\Groupe 
+     * @return \EDTBundle\Entity\Groupe
      */
     public function getGroupe()
     {

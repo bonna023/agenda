@@ -52,6 +52,12 @@ class AdminController extends Controller
       $nomAttributs = $em->getClassMetadata('EDTBundle\Entity\\'.$entite)->getFieldNames();
       $listeEntites = $em->getRepository('EDTBundle:'.$entite)->findAll();
   //   dump($nomAttributs); die;
+    if ($entite == 'Evenement')
+    {
+        return $this->redirectToRoute('edt_entite_add',
+              ['entite' => 'Evenement']
+            );
+    }
       return $this->render('EDTBundle:Admin:entite_view.html.twig',
       [ 'nomAttributs' => $nomAttributs,
         'entites' => $listeEntites,
@@ -102,7 +108,7 @@ class AdminController extends Controller
       /*$class = 'EDTBundle\Entity\\'.$entite;
       $classType = 'EDTBundle\Form\\'.$entite.'Type::class'.
     //  dump(new $class());die;
-      $objet = new $class();// YES WE CAN !!
+      $objet = new $class();
       $form = $formFactory->create( $classType, $objet);
 */
       switch ($entite){

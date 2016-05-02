@@ -2,7 +2,8 @@
 namespace EDTBundle\EventListener;
 
 use ADesigns\CalendarBundle\Event\CalendarEvent;
-use ADesigns\CalendarBundle\Entity\EventEntity;
+/*use ADesigns\CalendarBundle\Entity\EventEntity;*/
+use EDTBUndle\Entity\Evenement as EventEntity;
 use Doctrine\ORM\EntityManager;
 
 class CalendarEventListener

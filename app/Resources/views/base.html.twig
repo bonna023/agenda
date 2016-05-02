@@ -8,13 +8,13 @@
 	{% block stylesheets %}
 	<link rel="icon" 		type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 	<link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/edt/css/bootstrap.css') }}">
-	
+
 	{# fourni avec calendar-bundle 	(v1.5.3) #}
 	{# <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" /> #}
 
 	{# version ajoutée manuellement (v2.6.1) #}
 	<link rel="stylesheet" 	type="text/css" 	href="{{ asset('bundles/edt/css/fullcalendar.css') }}" />
-	
+
 	{# css à part #}
 	<link rel="stylesheet" 	type="text/css" 	href="{{asset('bundles/edt/css/style.css')}}">
 	{% endblock %}
@@ -76,7 +76,8 @@
 
 	<script type="text/javascript" src="{{ asset('bundles/edt/js/bootstrap.js') }}"></script>
 
-	<script type="text/javascript" src="{{ asset('bundles/edt/js/router.js') }}"></script>
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 	{% endblock %}
 
 	<footer class="footer">
