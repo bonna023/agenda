@@ -30,7 +30,10 @@ edt_entite_view:
     path:    /view/{entite}
     defaults: {_controller: EDTBundle:Admin:afficherEntite}
 
-
+# route pour Evenement
+edt_Evenement_add :
+    path: /add/Evenement
+    defaults: {_controller: EDTBundle:Admin:ajouterEvenement}
 
 # route spécifique à chaque entité pour ajouter/modofier
 # SALLE

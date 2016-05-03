@@ -18,8 +18,16 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('startDatetime', 'datetime')
-            ->add('endDatetime', 'datetime')
+            ->add('startDatetime', 'datetime',
+                ['required' => false,
+                 'widget' =>'single_text',
+                 'format' =>'dd/MM/yyyy HH:mm'
+                ])
+            ->add('endDatetime', 'datetime',
+                ['required' => false,
+                 'widget' =>'single_text',
+                 'format' =>'dd/MM/yyyy HH:mm'
+                ])
             ->add('groupes',EntityType::class,
                 ['class' => 'EDTBundle:Groupe',
                  'choice_label' =>'nom',

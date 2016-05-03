@@ -4,6 +4,7 @@ $(document).ready(function() {
 	var date = new Date();
 	var jour = date.getDate();
 	var mois = (date.getMonth()+1);
+	if(jour < 10) jour = '0' + jour;
 	if(mois < 10) mois = '0' + mois;
 	var annee = date.getFullYear();
 console.log(annee + '-' + mois + '-' + jour);
@@ -18,7 +19,7 @@ console.log(annee + '-' + mois + '-' + jour);
 		defaultView: 'agendaWeek',
 		defaultDate: annee + '-' + mois + '-' + jour, // '2016-01-12'
 
-		selectable: true,
+		selectable: false,
 		selectHelper: true,
 		select: function(start, end) {
 			var title = prompt('Titre : ');
@@ -38,7 +39,7 @@ console.log(annee + '-' + mois + '-' + jour);
 			$('#calendar-holder').fullCalendar('unselect');
 		},
 
-		editable: true,
+		editable: false,
 		eventLimit: true, // allow "more" link when too many events
 /*		events: [
 			{

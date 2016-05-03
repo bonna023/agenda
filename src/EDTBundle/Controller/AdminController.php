@@ -52,12 +52,12 @@ class AdminController extends Controller
       $nomAttributs = $em->getClassMetadata('EDTBundle\Entity\\'.$entite)->getFieldNames();
       $listeEntites = $em->getRepository('EDTBundle:'.$entite)->findAll();
   //   dump($nomAttributs); die;
-    if ($entite == 'Evenement')
+/*    if ($entite == 'Evenement')
     {
         return $this->redirectToRoute('edt_entite_add',
               ['entite' => 'Evenement']
             );
-    }
+    }*/
       return $this->render('EDTBundle:Admin:entite_view.html.twig',
       [ 'nomAttributs' => $nomAttributs,
         'entites' => $listeEntites,
@@ -127,10 +127,10 @@ class AdminController extends Controller
         case 'Groupe':
           $objet= new Groupe();
           $form = $formFactory->create(GroupeType::class, $objet);
-        case 'Evenement':
+       /* case 'Evenement':
           $objet = new Evenement();
           $form = $formFactory->create(EvenementType::class, $objet);
-        break;
+        break;*/
       }
       //le formulaire généré va hydrater l'objet $salle
       if ($form->handleRequest($request)->isValid()){
@@ -147,7 +147,20 @@ class AdminController extends Controller
       return new Response('<body>Page pour édité l\'entité : '.$entite.' d\'id : '.$id.'</body>');
     }
 
-
+/* ------------------------------------------------------------------------------------------- */
+    public function ajouterEvenementAction(Request $request){
+      $evenement = new Evenement();
+      $form = $this->get('form.factory')->create( EvenementType::class, $evenement);
+      //le formulaire généré va hydrater l'objet $evenement
+      if ($form->handleRequest($request)->isValid()){
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($evenement);
+        $em->flush();
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Evenement']));
+      }
+      return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
+    }
+/* ------------------------------------------------------------------------------------------- */
 
     public function ajouterSalleAction(Request $request){
       $salle = new Salle();

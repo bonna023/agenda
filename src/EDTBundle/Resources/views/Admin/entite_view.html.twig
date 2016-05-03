@@ -13,19 +13,23 @@
         <thead>
           <tr>
             {% for nom in nomAttributs %}
-              <th>{{nom}}</th>
+                <th>{{ nom }}</th>
             {% endfor %}
           </tr>
         </thead>
         <tbody>
           {% for entite in entites %}
-            <tr>
-            {% for nom in nomAttributs %}
-              <td>{{ attribute(entite,nom) }} </td>
-            {% endfor %}
-            <td><a href="{{path( route_edit, {'entite': nomEntite , 'id': entite.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
-            <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': entite.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
-          </tr>
+              <tr>
+                {% for nom in nomAttributs %}
+                  {% if attribute(entite,nom).timestamp is defined  %}          
+                    <td>{{ attribute(entite,nom) | date("m/d/Y H:i") }} </td>
+                  {% else %}
+                      <td>{{ attribute(entite,nom) }} </td>
+                  {% endif %}
+                {% endfor %}
+                <td><a href="{{path( route_edit, {'entite': nomEntite , 'id': entite.id})}}"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+                <td><a href="{{path( route_delete, {'entite':nomEntite, 'id': entite.id})}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+              </tr>
          {% endfor %}
        </tbody>
      </table>
