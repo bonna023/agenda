@@ -5,3 +5,7 @@ edt_homepage:
 edt_a_propos:
     path:     /A_propos
     defaults: {_controller:  EDTBundle:Default:a_propos}
+
+edt_test:
+    path:     /test
+    defaults: {_controller: EDTBundle:Default:test}

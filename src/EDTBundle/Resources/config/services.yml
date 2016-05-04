@@ -3,4 +3,4 @@ services:
     class: EDTBundle\EventListener\CalendarEventListener
     tags:
     - { name: kernel.event_listener, event: calendar.load_events, method: loadEvents }
-    arguments: [@doctrine.orm.entity_manager, @service_container]
+    arguments: ['@doctrine.orm.entity_manager', '@service_container']

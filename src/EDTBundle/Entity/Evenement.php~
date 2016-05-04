@@ -63,8 +63,7 @@ class Evenement
     {
 
         $this->groupes = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->endDateTime= new \DateTime();
-        $this->startDateTime = new \DateTime();
+
     }
 
     public function setId($id)
@@ -199,28 +198,5 @@ class Evenement
     public function getMatiere()
     {
         return $this->matiere;
-    }
-
-    /**
-     * Set type
-     *
-     * @param \EDTBundle\Entity\Type $type
-     * @return Evenement
-     */
-    public function setType(\EDTBundle\Entity\Type $type = null)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \EDTBundle\Entity\Type
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 }

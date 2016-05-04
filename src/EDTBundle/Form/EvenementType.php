@@ -5,6 +5,7 @@ namespace EDTBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type;
+/*use Symfony\Componenet\Form\Extension\Core\*/
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use EDTBundle\Entity\Groupe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,21 +19,21 @@ class EvenementType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('startDatetime', 'datetime',
-                ['required' => false,
-                 'widget' =>'single_text',
-                 'format' =>'dd/MM/yyyy HH:mm'
-                ])
-            ->add('endDatetime', 'datetime',
-                ['required' => false,
-                 'widget' =>'single_text',
-                 'format' =>'dd/MM/yyyy HH:mm'
-                ])
+            ->add('matiere', EntityType::class,            /*en 1er choisir la matiere */
+                ['class' => 'EDTBundle:Matiere',
+                 'choice_label' => 'nom',
+                 'multiple' => false])
+
             ->add('groupes',EntityType::class,
                 ['class' => 'EDTBundle:Groupe',
                  'choice_label' =>'nom',
                  'multiple' =>true
-                ])
+               ])
+            ->add('type', EntityType::class,            /*choix du type de séance */
+                ['class' => 'EDTBundle:Type',
+                  'choice_label' => 'nom',
+                  'multiple' =>false ])
+
             ->add('salle', EntityType::class,
                 ['class' => 'EDTBundle:Salle',
                   'choice_label' => 'numSalle',
@@ -41,10 +42,15 @@ class EvenementType extends AbstractType
                 ['class' => 'UserBundle:Professeur',
                   'choice_label' => 'username',
                   'multiple' => false])
-            ->add('matiere', EntityType::class,
-                ['class' => 'EDTBundle:Matiere',
-                 'choice_label' => 'nom',
-                 'multiple' => false])
+            ->add('startDatetime', Type\DateTimeType::class,
+                ['required' => false,
+                 'widget' =>'single_text',
+                 'format' =>'dd/MM/yyyy HH:mm'])
+           ->add('endDatetime', Type\DateTimeType::class,
+               ['required' => false,
+                'widget' =>'single_text',
+                'format' =>'dd/MM/yyyy HH:mm'
+               ])
             ->add('ajouter' , Type\SubmitType::class)
         ;
     }
