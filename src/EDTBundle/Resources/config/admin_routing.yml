@@ -24,16 +24,32 @@ edt_Matiere_add:
     path:  /add/Matiere
     defaults: {_controller: EDTBundle:Admin:ajouterMatiere}
 
+edt_Groupe_add:
+    path: /add/Groupe
+    defaults: {_controller: EDTBundle:Admin:ajouterGroupe}
+
 #route generique aux Entites Salle MAtiere, ....
 
 edt_entite_view:
     path:    /view/{entite}
     defaults: {_controller: EDTBundle:Admin:afficherEntite}
 
+#------------------------------------------------------------------
 # route pour Evenement
 edt_Evenement_add :
     path: /add/Evenement
     defaults: {_controller: EDTBundle:Admin:ajouterEvenement}
+
+#route pour la requete ajax:
+type_ajax_call:
+    path: /ajax/type
+    defaults: {_controller: EDTBundle:Admin:ajaxType}
+
+#------------------------------------------------------------------------
+
+
+
+
 
 # route spécifique à chaque entité pour ajouter/modofier
 # SALLE

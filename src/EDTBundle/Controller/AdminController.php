@@ -5,7 +5,8 @@ namespace EDTBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 //use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 //use FOS\UserBundle\Entity\User;
@@ -124,9 +125,11 @@ class AdminController extends Controller
           $objet = new ProfMatiere();
           $form = $formFactory->create(ProfMatiereType::class, $objet);
         break;
+        /*
         case 'Groupe':
           $objet= new Groupe();
           $form = $formFactory->create(GroupeType::class, $objet);
+          */
        /* case 'Evenement':
           $objet = new Evenement();
           $form = $formFactory->create(EvenementType::class, $objet);
@@ -148,6 +151,26 @@ class AdminController extends Controller
     }
 
 /* ------------------------------------------------------------------------------------------- */
+
+    public function ajaxTypeAction(Request $request){
+      if(!$request->isXmlHttpRequest()){
+        throw new NotFoundHttpException();
+      }
+      /*obtention de l'id du type*/
+      $id = $request->query->get('type_id');
+      $result = array();
+
+      /* retour de la liste des salles qui correspondent au type sélectionné*/
+      $repo=$this->getDoctrine()->getManager()->getRepository('EDTBundle:Salle');
+      $salles = $repo->findByType($id, ['numSalle' => 'asc']);
+      foreach ($salles as $salle) {
+        $result[$salle->getNumSalle()] = $salle->getId();
+      }
+      return new JsonResponse($result);
+    }
+
+
+
     public function ajouterEvenementAction(Request $request){
       $evenement = new Evenement();
       $form = $this->get('form.factory')->create( EvenementType::class, $evenement);
@@ -160,7 +183,51 @@ class AdminController extends Controller
       }
       return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ------------------------------------------------------------------------------------------- */
+
+  public function ajouterGroupeAction(Request $request){
+    $groupe = new Groupe();
+    $form = $this->get('form.factory')->create( GroupeType::class, $groupe);
+    //le formulaire généré va hydrater l'objet $salle
+    if ($form->handleRequest($request)->isValid()){
+      $em=$this->getDoctrine()->getManager();
+      /*dump($groupe);die;*/
+      $etudiants = $groupe->getEtudiants();
+      foreach($etudiants as $etudiant){
+        $etudiant->setGroupe($groupe);
+        $em->persist($etudiant);
+      }
+      $em->persist($groupe);
+      $em->flush();
+      $request->getSession()->getFlashBag()->add('notice', 'Groupe bien enregistré');
+      return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Groupe']));
+    }
+    /*return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);*/
+    return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
+  }
+
+
+  /*-----------------------------------------------------------------------------------------------------*/
 
     public function ajouterSalleAction(Request $request){
       $salle = new Salle();

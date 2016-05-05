@@ -23,6 +23,11 @@
 		{{ form_errors(form.matiere) }} 	{# Affichage des erreurs pour ce champ précis. #}
 	</div>
 	<div class="form-group">
+		{{ form_label(form.professeur, "Professeur : ", {'label_attr': {'class': 'control-label'}}) }}
+		{{ form_widget(form.professeur, {'attr': {'class': 'form-control'}}) }}
+		{{ form_errors(form.professeur) }} 	{# Affichage des erreurs pour ce champ précis. #}
+	</div>
+	<div class="form-group">
 		{{ form_label(form.groupes, "Groupes : ", {'label_attr': {'class': 'control-label'}}) }}
 		{{ form_widget(form.groupes, {'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.groupes) }} 	{# Affichage des erreurs pour ce champ précis. #}
@@ -37,11 +42,7 @@
 		{{ form_widget(form.salle, {'attr': {'class': 'form-control'}}) }}
 		{{ form_errors(form.salle) }} 	{# Affichage des erreurs pour ce champ précis. #}
 	</div>
-	<div class="form-group">
-		{{ form_label(form.professeur, "Professeur : ", {'label_attr': {'class': 'control-label'}}) }}
-		{{ form_widget(form.professeur, {'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.professeur) }} 	{# Affichage des erreurs pour ce champ précis. #}
-	</div>
+
 
 	<div class="form-group">
 		{{ form_label(form.startDatetime, "Date début : ", {'label_attr': {'class': 'control-label'}}) }}
@@ -88,5 +89,26 @@
 			});
 		});
 	</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#evenement_type').change(function(){
+           var val = $(this).val();
+           $.ajax({
+                type: "POST",
+                url: "{{ url('type_ajax_call') }}?type_id=" + val,
+                success: function(data) {
+                    // Remove current options
+                    $('#evenement_salle').html('');
+                    $.each(data, function(k, v) {
+                        $('#evenement_salle').append('<option value="' + v + '">' + k + '</option>');
+                    });
+                }
+            });
+            return false;
+        });
+    });
+</script>
 
 {% endblock %}

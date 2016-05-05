@@ -3,6 +3,7 @@
 namespace EDTBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use EDTBUndle\Entity\Type;
 
 /**
  * SalleRepository
@@ -12,4 +13,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class SalleRepository extends EntityRepository
 {
+  function getSallesCorrespondantes($id_type){
+    $qb = $this->createQueryBuilder('salles')
+          ->leftJoin('salles.type' , 'type')
+          ->where('type.id = :id_type')
+          ->setParameter('id_type', $id_type);
+    return $qb->getQuery()->getResult();
+  }
 }

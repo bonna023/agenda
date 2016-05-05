@@ -27,9 +27,8 @@ class SalleType extends AbstractType
                 ]
             )
             ->add('ajouter' , Type\SubmitType::class)
-
         ;
-        // de base tous les attributs sont required => true
+
     }
 
     /**

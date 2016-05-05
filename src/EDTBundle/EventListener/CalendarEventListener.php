@@ -36,7 +36,6 @@ class CalendarEventListener
         // for instance, retrieving events from a repository
 
 
-
         /*=================================================*/
         /* I) Détermine quel type d'utilisateur est connecté*/
         /* Pourrait être remplacé par $utilisateur->getType()
