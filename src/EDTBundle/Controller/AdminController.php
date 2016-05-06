@@ -25,6 +25,8 @@ use EDTBundle\Entity\Groupe;
 use EDTBundle\Form\GroupeType;
 use EDTBundle\Entity\Evenement;
 use EDTBundle\Form\EvenementType;
+use EDTBundle\Entity\Type as TypeCours;
+use EDTBundle\Form\TypeType;
 
 
 /**
@@ -125,6 +127,10 @@ class AdminController extends Controller
           $objet = new ProfMatiere();
           $form = $formFactory->create(ProfMatiereType::class, $objet);
         break;
+        case 'Type':
+          $objet =new TypeCours();
+          $form = $formFactory->create(TypeType::class, $objet);
+        break;
         /*
         case 'Groupe':
           $objet= new Groupe();
@@ -146,8 +152,33 @@ class AdminController extends Controller
       return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
     }
 
-    public function editEntiteAction(Request $request, $entite, $id){
-      return new Response('<body>Page pour édité l\'entité : '.$entite.' d\'id : '.$id.'</body>');
+    public function editerEntiteAction(Request $request, $entite, $id){
+
+          $formFactory = $this->get('form.factory');
+          $em = $this->getDoctrine()->getManager();
+          switch ($entite){
+            case 'Matiere':
+              $objet = $em->getRepository('EDTBundle:Matiere')->find($id);
+              $form = $formFactory->create (MatiereType::class, $objet);
+            break;
+            case 'Salle' :
+              $objet = $em->getRepository('EDTBundle:Salle')->find($id);
+              $form = $formFactory->create (SalleType::class, $objet);
+            break;
+            case 'ProfMatiere':
+              $objet = $em->getRepository('EDTBundle:ProfMatiere')->find($id);
+              $form = $formFactory->create(ProfMatiereType::class, $objet);
+            break;
+          }
+          //le formulaire généré va hydrater l'objet $salle
+          if ($form->handleRequest($request)->isValid()){
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($objet);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+            return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => $entite]));
+          }
+          return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
     }
 
 /* ------------------------------------------------------------------------------------------- */
@@ -169,11 +200,33 @@ class AdminController extends Controller
       return new JsonResponse($result);
     }
 
+    public function ajaxMatiereAction(Request $request){
+      if(!$request->isXmlHttpRequest()){
+        throw new NotFoundHttpException();
+      }
+      /*obtention de l'id du type*/
+      $id = $request->query->get('matiere_id');
+      $result = array();
 
+      /* retour de la liste des salles qui correspondent au type sélectionné*/
+      $repo=$this->getDoctrine()->getManager()->getRepository('UserBundle:Professeur');
+      $professeurs = $repo->createQueryBuilder('p')
+          ->leftJoin('p.prof_matieres', 'pm')
+          ->leftJoin('pm.matiere', 'm')
+          ->where('m.id = :id_m')
+          ->setParameter('id_m' ,$id)
+          ->getQuery()->getResult();
+
+      foreach ($professeurs as $professeur) {
+        $result[$professeur->getUsername()] = $professeur->getId();
+      }
+      return new JsonResponse($result);
+    }
 
     public function ajouterEvenementAction(Request $request){
       $evenement = new Evenement();
-      $form = $this->get('form.factory')->create( EvenementType::class, $evenement);
+      /*$form = $this->get('form.factory')->create( EvenementType::class, $evenement);*/
+      $form = $this->createForm(new EvenementType($this->getDoctrine()->getManager()), $evenement);
       //le formulaire généré va hydrater l'objet $evenement
       if ($form->handleRequest($request)->isValid()){
         $em=$this->getDoctrine()->getManager();
@@ -288,12 +341,74 @@ class AdminController extends Controller
     public function editerEntiteAction($entite, $id){
       return new Reponse ('<body> Page pour édité l\entite : '.$entite.'d\id :'.$id.'</body>');
     }*/
-    public function editerSalleAction($entite, $id){
-      return new Response('<body>Page pour édité l\'entité : '.$entite.' d\'id : '.$id.'</body>');
+    public function editerSalleAction(Request $request, $id){
+      $formFactory = $this->get('form.factory');
+      $em = $this->getDoctrine()->getManager();
+      $objet = $em->getRepository('EDTBundle:Salle')->find($id);
+      $form = $formFactory->create (SalleType::class, $objet);
+      if ($objet ==null){
+        throw new NotFoundHttpException();
+      }
+      //le formulaire généré va hydrater l'objet $salle
+      if ($form->handleRequest($request)->isValid()){
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($objet);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => $entite]));
+      }
+      return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);    }
+
+    public function editerMatiereAction( Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+
+      $matiere = $em->getRepository('EDTBundle:Matiere')->find($id);
+      if ($matiere ==null){
+        throw new NotFoundHttpException();
+      }
+      $form = $this->get('form.factory')->create( MatiereType::class, $matiere);
+      //le formulaire généré va hydrater l'objet $salle
+      if ($form->handleRequest($request)->isValid()){
+      //$seances = $form->getData()->getSeances();// remplacement 1 par cette ligne de code le 12/04/16
+      $seances = $matiere->getSeances(); // remplacement 2 ; a voir quelle est la meilleur méthode...
+       // --- Fin du cas 1/2 ---
+       // On enregistre l'objet $article dans la base de donnÃ©es
+       $em = $this->getDoctrine()->getManager();
+       $em->persist($matiere);
+      // $em->flush();
+       foreach ($seances as $seance) {
+         $seance->setMatiere($matiere);
+         $em->persist($seance);
+       }
+       $em->flush();
+       // --- Fin du cas 2/2 ---
+      // - See more at: http://www.tutoriel-symfony2.fr/livre/codesource#sthash.7XJurIje.dpuf
+
+        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Matiere']));
+      }
+      return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
     }
 
-    public function editerMatiereAction( $id){
-      return new Response('<body>Page pour édité l\'entité : '.$entite.' d\'id : '.$id.'</body>');
+    public function editerEvenementAction(Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+
+      $evenement = $em->getRepository('EDTBundle:Evenement')->find($id);
+      if ($evenement ==null){
+        throw new NotFoundHttpException();
+      }
+      /*$form = $this->get('form.factory')->create( EvenementType::class, $evenement);*/
+      $form = $this->createForm(new EvenementType($this->getDoctrine()->getManager()), $evenement);
+      //le formulaire généré va hydrater l'objet $evenement
+      if ($form->handleRequest($request)->isValid()){
+        $em=$this->getDoctrine()->getManager();
+        /*dump($evenement);die;*/
+
+        $em->persist($evenement);
+        $em->flush();
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Evenement']));
+      }
+      return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
     }
 
     public function deleteEntiteAction($entite, $id){
@@ -310,14 +425,6 @@ class AdminController extends Controller
       $url = $this->generateUrl('admin_home_page');
       return new Response('<body>Entite bien supprimee.<a href='.$url.'> Page admin</a></body>');
     }
-
-
-
-
-
-
-
-
 
 
 ////--------------------USER  ----------------------

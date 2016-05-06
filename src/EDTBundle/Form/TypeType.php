@@ -5,6 +5,7 @@ namespace EDTBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type;
 
 class TypeType extends AbstractType
 {
@@ -16,9 +17,11 @@ class TypeType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('ajouter' , Type\SubmitType::class)
+
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

@@ -45,6 +45,10 @@ type_ajax_call:
     path: /ajax/type
     defaults: {_controller: EDTBundle:Admin:ajaxType}
 
+matiere_ajax_call:
+    path: /ajax/matiere
+    defaults: {_controller: EDTBundle:Admin:ajaxMatiere}
+
 #------------------------------------------------------------------------
 
 
@@ -56,6 +60,18 @@ type_ajax_call:
 edt_Salle_edit:
     path:   /edit/Salle/{id}
     defaults: {_controller: EDTBundle:Admin:editerSalle}
+    requirements:
+        id : \d+
+
+edt_Matiere_edit:
+    path:   /edit/Matiere/{id}
+    defaults: {_controller: EDTBundle:Admin:editerMatiere}
+    requirements:
+        id : \d+
+
+edt_Evenement_edit:
+    path:   /edit/Evenement/{id}
+    defaults: {_controller: EDTBundle:Admin:editerEvenement}
     requirements:
         id : \d+
 

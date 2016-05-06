@@ -77,19 +77,25 @@ class CalendarEventListener
           case 'user':
                 $companyEvents = $this->entityManager->getRepository('EDTBundle:Evenement')
                   ->createQueryBuilder('company_events')
+                  ->join('company_events.type', 't')
+                  ->addSelect('t')/* pour avoir les données des types de cours */
                   ->getQuery()->getResult();
           break;
           case 'professeur' :
             $companyEvents = $this->entityManager->getRepository('EDTBundle:Evenement')
                   ->createQueryBuilder('company_events')
                   ->where('company_events.professeur = :prof')
+                  ->join('company_events.type', 't')
+                  ->addSelect('t')/* pour avoir les données des types de cours */
                   ->setParameter('prof' , $utilisateur/*->getId()*/)
                   ->getQuery()->getResult();
           break;
           case 'etudiant':
             $companyEvents = $this->entityManager->getRepository('EDTBundle:Evenement')
                   ->createQueryBuilder('company_events')
-                  ->leftJoin('company_events.groupes', 'groupes')
+                  ->join('company_events.type', 't')
+                  ->addSelect('t')
+                  ->leftJoin('company_events.groupes', 'groupes')/* pour avoir les données des types de cours */
                   ->where('groupes.id = :id_groupe')
                   ->setParameter('id_groupe', $etudiant->getGroupe()->getId())
                   ->getQuery()->getResult();
@@ -111,14 +117,29 @@ class CalendarEventListener
             } else {
                 $eventEntity = new EventEntity($companyEvent->getTitle(), $companyEvent->getStartDatetime(), null, true);
             }
+            if ($companyEvent){
+              switch ($companyEvent->getType()->getNom()){
+                case 'CM':
+                  $color = '#0000FF';
+                break;
+                case 'TD' :
+                  $color = '#FF0000';
+                break;
+                case 'TP' :
+                  $color = '#00FF00';
+                break;
+                case 'TDI' :
+                  $color ='#FF00FF';
+                break;
+              }
+            }
+            else{
+              $color = '#00FFFF';
+            }
 
-
-
-            //optional calendar event settings
-            //$eventEntity->setAllDay(true); // default is false, set to true if this is an all day event
-            $eventEntity->setBgColor('#0000FF'); //set the background color of the event's label
+            $eventEntity->setBgColor($color); //set the background color of the event's label
             $eventEntity->setFgColor('#FFFFFF'); //set the foreground color of the event's label
-            $eventEntity->setUrl('http://www.google.com'); // url to send user to when event label is clicked
+            $eventEntity->setUrl('#'); // url to send user to when event label is clicked
             //$eventEntity->setCssClass('my-custom-class'); // a custom class you may want to apply to event labels
 
             //finally, add the event to the CalendarEvent for displaying on the calendar

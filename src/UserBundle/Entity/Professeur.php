@@ -81,4 +81,11 @@ class Professeur extends User
     {
         return $this->prof_matieres;
     }
+/*
+    public function getMatiereParNom($nom){
+      foreach($this->prof_matieres as $prof_matiere){
+        $matieres[] = $prof_matiere->getMatiere();
+      }
+      return $matieres;
+    }*/
 }

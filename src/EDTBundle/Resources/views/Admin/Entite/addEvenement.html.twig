@@ -89,8 +89,8 @@
 			});
 		});
 	</script>
-
-
+{# pour le filtre des salles en fonction
+du type de cours choisi.#}
 <script type="text/javascript">
     $(document).ready(function () {
         $('#evenement_type').change(function(){
@@ -103,6 +103,27 @@
                     $('#evenement_salle').html('');
                     $.each(data, function(k, v) {
                         $('#evenement_salle').append('<option value="' + v + '">' + k + '</option>');
+                    });
+                }
+            });
+            return false;
+        });
+    });
+</script>
+{# Pour le filtre des professeurs en fonction du type de matiere
+choisi.#}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#evenement_matiere').change(function(){
+           var val = $(this).val();
+           $.ajax({
+                type: "POST",
+                url: "{{ url('matiere_ajax_call') }}?matiere_id=" + val,
+                success: function(data) {
+                    // Remove current options
+                    $('#evenement_professeur').html('');
+                    $.each(data, function(k, v) {
+                        $('#evenement_professeur').append('<option value="' + v + '">' + k + '</option>');
                     });
                 }
             });
