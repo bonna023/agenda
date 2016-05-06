@@ -71,8 +71,6 @@ class EvenementType extends AbstractType
            'mapped' => true,
            'data' => $type
         ]);
-       /* echo 'dans addElements.<br />';
-        var_dump($type);*/
 
         /* en fonction du type */
         $salles = array();
@@ -86,8 +84,6 @@ class EvenementType extends AbstractType
                       ->where('t.id = :type_id')
                       ->setParameter('type_id', $type->getId())
                       ->getQuery()->getResult();
-            /*dump($salles);die;*/
-          /*findByType($type, array('numSalle' => 'asc'));*/
 
         }
 
@@ -159,9 +155,6 @@ class EvenementType extends AbstractType
 
       $evenement = $event->getData();
       $form = $event->getForm();
-     /*dump($event);
-      dump($evenement->getSalle());
-      die;*/
       $type = $evenement->getType() ? $evenement->getSalle()->getType() : null;
       $matiere = $evenement->getMatiere() ? $evenement->getMatiere(): null;
 
