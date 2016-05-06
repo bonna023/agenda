@@ -76,9 +76,27 @@ edt_Evenement_edit:
     requirements:
         id : \d+
 
+edt_Etudiant_edit:
+    path:   /edit/Etudiant/{id}
+    defaults: {_controller: EDTBundle:Admin:editerEtudiant}
+    requirements:
+        id : \d+
+
+edt_Type_edit:
+    path:   /edit/Type/{id}
+    defaults: {_controller: EDTBundle:Admin:editerType}
+    requirements:
+        id : \d+
+
 edt_Salle_add:
     path:   /add/Salle
     defaults: {_controller: EDTBundle:Admin:ajouterSalle}
+
+edt_Groupe_edit:
+    path:   /edit/Groupe/{id}
+    defaults: {_controller: EDTBundle:Admin:editerGroupe}
+    requirements:
+        id : \d+
 
 #route generique à toutes les entités
 edt_entite_delete:

@@ -363,7 +363,7 @@ class AdminController extends Controller
       }
       //le formulaire généré va hydrater l'objet $salle
       if ($form->handleRequest($request)->isValid()){
-        $em=$this->getDoctrine()->getManager();
+      /*  $em=$this->getDoctrine()->getManager();*/
         $em->persist($objet);
         $em->flush();
         $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
@@ -385,7 +385,7 @@ class AdminController extends Controller
       $seances = $matiere->getSeances(); // remplacement 2 ; a voir quelle est la meilleur méthode...
        // --- Fin du cas 1/2 ---
        // On enregistre l'objet $article dans la base de donnÃ©es
-       $em = $this->getDoctrine()->getManager();
+      /* $em = $this->getDoctrine()->getManager();*/
        $em->persist($matiere);
       // $em->flush();
        foreach ($seances as $seance) {
@@ -413,7 +413,7 @@ class AdminController extends Controller
       $form = $this->createForm(new EvenementType($this->getDoctrine()->getManager()), $evenement);
       //le formulaire généré va hydrater l'objet $evenement
       if ($form->handleRequest($request)->isValid()){
-        $em=$this->getDoctrine()->getManager();
+        /*$em=$this->getDoctrine()->getManager();*/
         /*dump($evenement);die;*/
 
         $em->persist($evenement);
@@ -422,6 +422,42 @@ class AdminController extends Controller
       }
       return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
     }
+
+    public function editerTypeAction(Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+      $type = $em->getRepository('EDTBundle:Type')->find($id);
+      if ($type == null){
+        throw new NotFoundHttpException();
+      }
+      $form = $this->createForm(TypeType::class, $type);
+      if ($form->handleRequest($request)->isValid()){
+        $em->persist($type);
+        $em->flush();
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Type']));
+      }
+      return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
+    }
+    public function editerGroupeAction(Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+      $groupe = $em->getRepository('EDTBundle:Groupe')->find($id);
+      $form = $this->get('form.factory')->create( GroupeType::class, $groupe);
+      //le formulaire généré va hydrater l'objet $salle
+      if ($form->handleRequest($request)->isValid()){
+        $etudiants = $groupe->getEtudiants();
+        foreach($etudiants as $etudiant){
+          $etudiant->setGroupe($groupe);
+          $em->persist($etudiant);
+        }
+        $em->persist($groupe);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Groupe bien enregistré');
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Groupe']));
+      }
+      /*return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);*/
+      return $this->render('EDTBundle:Admin:addEntite.html.twig', ['form' => $form->createView()]);
+    }
+
+    /*======================Fin EditerAction===============================*/
 
     public function deleteEntiteAction($entite, $id){
       $em = $this->getDoctrine()->getManager();
@@ -484,10 +520,27 @@ class AdminController extends Controller
 
     public function editUserAction(Request $request, $entite, $id){
       $em = $this->getDoctrine()->getManager();
-      $etudiant = $em->getRepository('UserBundle:User')->find($id);
-
-     return new Response('<body>Id choisi : '.$id.' LOL.</body>');
-    //  return $this->render('EDTBundle:Admin:etudient_edit.html.twig', ['etudiant' => $etudiant]);
+      switch ($entite){
+        case 'Etudiant' :
+          $user = $em->getRepository('UserBundle:Etudiant')->find($id);
+          $form = $this->get('form.factory')->create(EtudiantType::class, $user);
+        break;
+        case 'Professeur' :
+          $user = $em->getRepository('UserBundle:Professeur')->find($id);
+          $form = $this->get('form.factory')->create(ProfesseurType::class, $user);
+        break;
+      }
+      if ($user ==null){
+        throw new NotFoundHttpException();
+      }
+      if ($form->handleRequest($request)->isValid()){
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+        return $this->redirect($this->generateUrl('edt_user_view', ['entite' => $entite]));
+      }
+    return $this->render('EDTBundle:Admin/Entite:add'.$entite.'.html.twig', ['form' => $form->createView()]);
     }
 
     public function afficherMesCoursAction(){
