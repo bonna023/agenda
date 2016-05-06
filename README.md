@@ -8,6 +8,7 @@ Déploiment :
 ----
  
 Télécharger [Composer.phar](https://getcomposer.org/composer.phar)
+Ensuite utiliser les commandes suivantes
 ````
 git clone https://github.com/bonna023/agenda.git
 php app/console doctrine:database:create
@@ -16,6 +17,7 @@ php app/console doctrine:fixtures:load
 ````
  
 Pour commencer à coder :
+----
 ````
 git clone https://github.com/bonna023/agenda.git
 ````
