@@ -68,11 +68,11 @@ class EvenementType extends AbstractType
           'class' => 'EDTBundle:Type',
            'choice_label' =>'nom',
            'placeholder' => '-- choisir un type --',
-           'mapped' => false,
+           'mapped' => true,
            'data' => $type
         ]);
-        echo 'dans addElements.<br />';
-        dump($type);die;
+       /* echo 'dans addElements.<br />';
+        var_dump($type);*/
 
         /* en fonction du type */
         $salles = array();
@@ -108,7 +108,7 @@ class EvenementType extends AbstractType
            'choice_label' => 'nom',
            'placeholder' => '-- choisir une matière --',
            'multiple' => false,
-           'mapped' =>false,
+           'mapped' =>true,
            'data' => $matiere
          ]);
 
