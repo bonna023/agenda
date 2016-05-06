@@ -49,10 +49,11 @@ matiere_ajax_call:
     path: /ajax/matiere
     defaults: {_controller: EDTBundle:Admin:ajaxMatiere}
 
+# PROF MATIERE
+edt_ProfMatiere_add:
+    path:  /add/ProfMatiere
+    defaults: {_controller: EDTBundle:Admin:ajouterProfMatiere}
 #------------------------------------------------------------------------
-
-
-
 
 
 # route spécifique à chaque entité pour ajouter/modofier
@@ -108,10 +109,6 @@ edt_Matiere_edit:
 edt_Matiere_add:
     path:  /edit/Matiere
     defaults: {_controller: EDTBundle:Admin:ajouterMatiere}
-# PROF MATIERE
-edt_ProfMatiere_add:
-    path:  /add/ProfMatiere
-    defaults: {_controller: EDTBundle:Admin:ajouter}
 
 #route pour les maj de USERs
 edt_user_edit:

@@ -48,7 +48,6 @@ console.log(annee + '-' + mois + '-' + jour);
 					end: '2016-04-18T12:30:00'
 			}
 		],*/
-
 		eventSources: [
             {
                 url: Routing.generate('fullcalendar_loader'),
@@ -62,7 +61,6 @@ console.log(annee + '-' + mois + '-' + jour);
                 }
             }
         ],
-
         eventClick:  function(event, jsEvent, view) {
             $('#modalTitle').html(event.title);
             $('#modalBody').html(event.description);

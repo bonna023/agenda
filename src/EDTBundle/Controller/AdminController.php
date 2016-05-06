@@ -165,10 +165,10 @@ class AdminController extends Controller
               $objet = $em->getRepository('EDTBundle:Salle')->find($id);
               $form = $formFactory->create (SalleType::class, $objet);
             break;
-            case 'ProfMatiere':
+            /*case 'ProfMatiere':
               $objet = $em->getRepository('EDTBundle:ProfMatiere')->find($id);
               $form = $formFactory->create(ProfMatiereType::class, $objet);
-            break;
+            break;*/
           }
           //le formulaire généré va hydrater l'objet $salle
           if ($form->handleRequest($request)->isValid()){
@@ -237,7 +237,19 @@ class AdminController extends Controller
       return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
     }
 
-
+    public function ajouterProfMatiereAction(Request $request){
+      $profMat = new ProfMatiere();
+      /*$form = $this->get('form.factory')->create( EvenementType::class, $evenement);*/
+      $form = $this->createForm(new ProfMatiereType($this->getDoctrine()->getManager()), $profMat);
+      //le formulaire généré va hydrater l'objet $profMat
+      if ($form->handleRequest($request)->isValid()){
+        $em=$this->getDoctrine()->getManager();
+        $em->persist($profMat);
+        $em->flush();
+        return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'ProfMatiere']));
+      }
+      return $this->render('EDTBundle:Admin/Entite:addProfMatiere.html.twig', ['form' => $form->createView()]);
+    }
 
 
 

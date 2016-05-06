@@ -28,7 +28,7 @@ class ProfMatiereType extends AbstractType
             ['class' => 'UserBundle:Professeur',
             'choice_label' => 'username',
             'multiple' => false])
-            -> add('save' , Type\SubmitType::class)
+            -> add('ajouter' , Type\SubmitType::class)
           ;
     }
 
