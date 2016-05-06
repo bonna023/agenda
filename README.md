@@ -1,16 +1,27 @@
 Proget INFO606 - Agenda Universitaire
 
-test
 Sujet
 ----
 Le but du projet est de développer un système de gestion d'emploi du temps pour des formations universitaires (comme par exemple les Master 2), en s'inspirant de Google Agenda. Le projet devra être réalisé en Symfony 2.8.
  
+Déploiement : 
+----
+ 
+Télécharger [Composer.phar](https://getcomposer.org/composer.phar)
+Ensuite utiliser les commandes suivantes
+````
+git clone https://github.com/bonna023/agenda.git
+php app/console doctrine:database:create
+php composer.phar install
+php app/console doctrine:fixtures:load
+````
  
 Pour commencer à coder :
+----
 ````
 git clone https://github.com/bonna023/agenda.git
 ````
-Ensuite élécharger [Composer.phar](https://getcomposer.org/composer.phar) à la racine du projet puis :
+Ensuite télécharger [Composer.phar](https://getcomposer.org/composer.phar) à la racine du projet puis :
 ````
 php composer.phar install
 ````
