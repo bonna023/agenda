@@ -1,7 +1,7 @@
 <?php
 // src/EDTBundle/DataFixtures/ORM/LoadMatiere.php
 
-namespace EDTBundle\DataFixtures\ORM;
+namespace UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
