@@ -117,6 +117,7 @@ class CalendarEventListener
             } else {
                 $eventEntity = new EventEntity($companyEvent->getTitle(), $companyEvent->getStartDatetime(), null, true);
             }
+            $color = '#00FFFF';
             if ($companyEvent){
               switch ($companyEvent->getType()->getNom()){
                 case 'CM':
@@ -131,12 +132,10 @@ class CalendarEventListener
                 case 'TDI' :
                   $color ='#FF00FF';
                 break;
+
               }
             }
-            else{
-              $color = '#00FFFF';
-            }
-
+        
             $eventEntity->setBgColor($color); //set the background color of the event's label
             $eventEntity->setFgColor('#FFFFFF'); //set the foreground color of the event's label
             $eventEntity->setUrl('#'); // url to send user to when event label is clicked

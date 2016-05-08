@@ -223,19 +223,30 @@ class AdminController extends Controller
       return new JsonResponse($result);
     }
 
+
+    /*=======================================================*/
+
     public function ajouterEvenementAction(Request $request){
       $evenement = new Evenement();
-      /*$form = $this->get('form.factory')->create( EvenementType::class, $evenement);*/
       $form = $this->createForm(new EvenementType($this->getDoctrine()->getManager()), $evenement);
       //le formulaire généré va hydrater l'objet $evenement
       if ($form->handleRequest($request)->isValid()){
+
         $em=$this->getDoctrine()->getManager();
+        $titre="";
+        $titre = $titre."\n".$evenement->getSalle()->getNumSalle();
+        $titre = $titre."\nMr ".$evenement->getProfesseur()->getUsername();
+        $titre = $titre."\n".$evenement->getMatiere()->getNom();
+        $evenement->setTitle($titre);
+
         $em->persist($evenement);
         $em->flush();
         return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Evenement']));
       }
       return $this->render('EDTBundle:Admin/Entite:addEvenement.html.twig', ['form' => $form->createView()]);
     }
+
+/*=================================================================*/
 
     public function ajouterProfMatiereAction(Request $request){
       $profMat = new ProfMatiere();
@@ -413,9 +424,11 @@ class AdminController extends Controller
       $form = $this->createForm(new EvenementType($this->getDoctrine()->getManager()), $evenement);
       //le formulaire généré va hydrater l'objet $evenement
       if ($form->handleRequest($request)->isValid()){
-        /*$em=$this->getDoctrine()->getManager();*/
-        /*dump($evenement);die;*/
-
+        $titre = "";
+        $titre = $titre."\n".$evenement->getSalle()->getNumSalle();
+        $titre = $titre."\nMr ".$evenement->getProfesseur()->getUsername();
+        $titre = $titre."\n".$evenement->getMatiere()->getNom();
+        $evenement->setTitle($titre);
         $em->persist($evenement);
         $em->flush();
         return $this->redirect($this->generateUrl('edt_entite_view', ['entite' => 'Evenement']));

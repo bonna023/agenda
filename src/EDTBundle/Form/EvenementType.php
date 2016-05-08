@@ -34,6 +34,7 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('title')
             ->add('groupes',EntityType::class,
                 ['class' => 'EDTBundle:Groupe',

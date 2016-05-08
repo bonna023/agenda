@@ -11,11 +11,13 @@
 	{# Les erreurs générales du formulaire. #}
 	{{ form_errors(form) }}
 {# LE  titre de l'évenement#}
+
 	<div class="form-group">
 		{{ form_label(form.title, "Titre : ", {'label_attr': {'class': 'control-label'}}) }}
 		{{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
-		{{ form_errors(form.title) }} 	{# Affichage des erreurs pour ce champ précis. #}
+		{{ form_errors(form.title) }}
 	</div>
+
 	{#En 2eme la matiere#}
 	<div class="form-group">
 		{{ form_label(form.matiere, "Matière : ", {'label_attr': {'class': 'control-label'}}) }}
