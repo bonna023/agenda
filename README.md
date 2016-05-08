@@ -6,15 +6,27 @@ Le but du projet est de développer un système de gestion d'emploi du temps pou
  
 Déploiement : 
 ----
- 
-Télécharger [Composer.phar](https://getcomposer.org/composer.phar)
-Ensuite utiliser les commandes suivantes
+- Effectuer les commandes suivantes :
 ````
 git clone https://github.com/bonna023/agenda.git
+````
+- créer un fichier "parameters.yml" dans /agenda/app/config/
+- copier le contenu du fichier "parameters.yml.dist" dans votre fichier "parameters.yml"
+- télécharger [Composer.phar](https://getcomposer.org/composer.phar) dans /agenda/
+````
+php composer.phar install
 php app/console doctrine:database:create
 php composer.phar install
+php app/console doctrine:schema:update --force
 php app/console doctrine:fixtures:load
 ````
+- dans le fichier /agenda/vendor/adesigns/calendar-bundle/ADesigns/CalendarBundle/Controller/CalendarController.php
+ remplacer les lignes 21 et 24 par : 
+````
+21  $startDatetime->setTimestamp(strtotime($request->get('start')));
+24  $endDatetime->setTimestamp(strtotime($request->get('end')));
+````
+- Identifiants : admin / passadmin
  
 Pour commencer à coder :
 ----
